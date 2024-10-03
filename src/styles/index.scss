@@ -1,0 +1,48 @@
+@use "reset";
+@import "variables";
+
+html {
+  background-color: $background-color;
+
+  .header {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+  
+    p {
+      text-align: center;
+      color: $primary-color;
+      font-size: 3rem;
+    }
+  
+    button {
+      font-size: 2rem;
+      width: 50vw;
+      cursor: pointer;
+      background-color: white;
+      border: 0.1rem solid black;
+      border-radius: 1rem;
+  
+      &:hover {
+        background-color: $primary-color;
+      }
+    }
+  }
+
+  .field {
+    display: grid;
+    grid-template-rows: repeat(11, 7vw);
+    width: 91vw;
+    margin-inline: auto;
+    background-image: url('/Background.jpg');
+
+    .field-row {
+
+      .field-item {
+        width: 7vw;
+        height: 7vw;
+      }
+    }
+  }
+}

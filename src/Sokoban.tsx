@@ -1,10 +1,15 @@
-import "./styles/main.scss"
+import "./styles/index.scss"
+import Playground from "./components/Playground"
 
 function Sokoban() {
 
   return (
     <>
-      <p className="title">SOKOBAN</p>
+      <div className="header">
+        <img src="/Title.jpg" alt="Sokoban" />
+        <button className="play-button">Play</button>
+      </div>
+      <Playground />
     </>
   )
 }
