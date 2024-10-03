@@ -5,10 +5,6 @@ function Sokoban() {
 
   return (
     <>
-      <div className="header">
-        <img src="/Title.jpg" alt="Sokoban" />
-        <button className="play-button">Play</button>
-      </div>
       <Playground />
     </>
   )

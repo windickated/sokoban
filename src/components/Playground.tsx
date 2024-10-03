@@ -1,40 +1,42 @@
+import field from "../data/gameLevels";
+
+let level = 1;
+
 const Playground = () => {
-  const field: number[][] = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 3, 0, 3, 0, 2, 1, 1, 1],
-    [1, 1, 1, 2, 0, 3, 4, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-  ]
   return (
-    <>
+    <section className="playground">
+      <div className="header">
+        <p>SOKOBAN</p>
+        <div>
+          <p>Level: </p>
+          <select className="level" >
+            {field.map((_, index) => (
+              <option value={index + 1}>{index + 1}</option>
+            ))}
+          </select>
+        </div>
+      </div>
       <section className="field">
-        {field.map((row, i) => (
+        {field[level - 1].map((row, i) => (
           <div className="field-row">
             {row.map((item, j) => {
-              let itemObject: undefined | 'Point' | 'Box' | 'Wall' | 'Bulldozer';
+              let itemObject: undefined | 'point' | 'box' | 'wall' | 'bulldozer';
               let emptyItemStyling: object | undefined = undefined;
               switch(item) {
                 case 1: {
-                  itemObject = 'Wall';
+                  itemObject = 'wall';
                   break;
                 }
                 case 2: {
-                  itemObject = 'Point';
+                  itemObject = 'point';
                   break;
                 }
                 case 3: {
-                  itemObject = 'Box';
+                  itemObject = 'box';
                   break;
                 }
                 case 4: {
-                  itemObject = 'Bulldozer';
+                  itemObject = 'bulldozer';
                   break;
                 }
                 default: {
@@ -55,7 +57,11 @@ const Playground = () => {
           </div>
         ))}
       </section>
-    </>
+      <div className="moves">
+        <img className="undo-move" src="undo.png" alt="Undo" />
+        <p className="moves-counter">Moves: 0</p>
+      </div>
+    </section>
   )
 }
 
