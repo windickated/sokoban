@@ -1,20 +1,32 @@
 @use "reset";
 @import "variables";
 
+
 * {
   font-family: $main-font;
-}
-
-
-html {
-  font-size: $standard;
-  color: $primary;
-  background-color: $background;
 
   img {
     height: auto;
     aspect-ratio: 1/1;
   }
+  
+  button {
+    color: inherit;
+    font-size: inherit;
+  }
+  
+  p {
+    cursor: default;
+  }
+}
+
+// General Mobile view
+
+html {
+  font-size: $standard;
+  line-height: $standard * 1.5;
+  color: $primary;
+  background-color: $background;
 
   .playground {
     display: flex;
@@ -26,10 +38,25 @@ html {
       align-items: center;
       padding-inline: $standard;
       padding-block: $standard / 2;
-      line-height: $standard * 1.5;
       background-color: $menu;
       color: $light;
       font-weight: $bold;
+
+      .title {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+
+        img {
+          width: $standard;
+          opacity: 0.5;
+          cursor: pointer;
+
+          &:hover, &:active {
+            opacity: 1;
+          }
+        }
+      }
 
       div {
         display: flex;
@@ -73,24 +100,68 @@ html {
       flex-flow: column nowrap;
       align-items: center;
 
-      .moves {
+      .controls {
         display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
         gap: $standard;
-  
-        .undo-move {
-          width: $standard;
-          height: $standard;
-          cursor: pointer;
-  
-          &:hover, &:active {
-            opacity: 0.5;
+        color: $light;
+
+        .moves {
+          display: flex;
+          gap: $standard;
+          padding: $standard $standard * 2;
+          background-color: $menu;
+    
+          .undo-move {
+            width: $standard;
+            height: $standard;
+            cursor: pointer;
+    
+            &:hover, &:active {
+              opacity: 0.5;
+            }
           }
+        }
+
+        .restart {
+          padding: $standard $standard * 2;
+          background-color: $menu;
+          line-height: inherit;
+
+          &:hover, &:active {
+            opacity: 0.75;
+          }
+        }
+      }
+
+      .mobile-controller {
+        position: fixed;
+        bottom: 0;
+        margin-block: $standard;
+
+        div {
+          position: absolute;
+          opacity: 0.75;
+
+          img {
+            display: none;
+          }
+
+          .visible {
+            display: block;
+          }
+        }
+
+        img {
+          width: 50vw;
         }
       }
     }
   }
 }
 
+// PC view
 
 @media screen and ($pc) { 
   html {
@@ -112,21 +183,27 @@ html {
         margin-block: $standard * 2;
         padding-block: $standard;
         max-height: 11 * $item-size;
-        width: 15vw;
+        width: $large * 3;
 
-        p {
+        .title {
           font-size: $standard * 1.5;
-          margin-bottom: $standard / 2;
+          margin-bottom: $standard / 1.5;
+          color: $primary;
         }
 
-        .levels-list {
+        ul {
           line-height: $standard * 2;
-          background-color: $semi-transparent;
 
           .level {
             font-size: $standard * 0.9;
             padding: $standard / 2 $standard * 2;
             border: $thin / 2 solid $transparent;
+            background-color: $semi-transparent;
+            cursor: pointer;
+
+            &:hover, &:active {
+              opacity: 0.75;
+            }
           }
         }
       }
@@ -145,17 +222,45 @@ html {
       }
 
       .footer {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
         outline: $standard / 1.5 solid $transparent;
         border-radius: $standard / 3;
         margin-block: $standard * 2;
         padding-block: $standard;
         max-height: 11 * $item-size;
-        width: 15vw;
+        width: $large * 3;
         background-color: $menu;
 
-        .moves {
-          background-color: $semi-transparent;
+        .controls {
+          
+          .moves {
+            background-color: $semi-transparent;
+          }
+  
+          .restart {
+            background-color: $semi-transparent;
+          }
+        }
+
+        .play-instructions {
+          display: flex;
+          flex-flow: column nowrap;
+          gap: $standard;
+          font-size: $standard * 0.9;
           padding: $standard $standard * 2;
+          background-color: $semi-transparent;
+          margin: $standard;
+          margin-bottom: 0;
+
+          strong {
+            font-weight: $bold;
+          }
+
+          img {
+            aspect-ratio: initial;
+          }
         }
       }
     }
