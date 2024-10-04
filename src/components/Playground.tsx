@@ -1,20 +1,33 @@
 import field from "../data/gameLevels";
 
 let level = 1;
+const mobileDevice: boolean = window.outerWidth <= 768 ? true : false;
 
 const Playground = () => {
   return (
     <section className="playground">
       <div className="header">
         <p>SOKOBAN</p>
-        <div>
-          <p>Level: </p>
-          <select className="level" >
-            {field.map((_, index) => (
-              <option value={index + 1}>{index + 1}</option>
-            ))}
-          </select>
-        </div>
+        {
+          mobileDevice
+          ?
+          <div>
+            <p>Level: </p>
+            <select className="level" >
+              {field.map((_, index) => (
+                <option value={index + 1}>{index + 1}</option>
+              ))}
+            </select>
+          </div>
+          :
+          <ul className="levels-list">
+            {
+            field.map((_, index) => (
+              <li className="level" key={index + 1}>Level: {index + 1}</li>
+            ))
+            }
+          </ul>
+        }
       </div>
       <section className="field">
         {field[level - 1].map((row, i) => (
@@ -57,9 +70,11 @@ const Playground = () => {
           </div>
         ))}
       </section>
-      <div className="moves">
-        <img className="undo-move" src="undo.png" alt="Undo" />
-        <p className="moves-counter">Moves: 0</p>
+      <div className="footer">
+        <div className="moves">
+          <img className="undo-move" src="undo.png" alt="Undo" />
+          <p className="moves-counter">Moves: 0</p>
+        </div>
       </div>
     </section>
   )

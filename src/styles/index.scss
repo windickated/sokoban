@@ -68,18 +68,23 @@ html {
       }
     }
 
-    .moves {
+    .footer {
       display: flex;
-      gap: $standard;
-      justify-content: center;
+      flex-flow: column nowrap;
+      align-items: center;
 
-      .undo-move {
-        width: $standard;
-        height: $standard;
-        cursor: pointer;
-
-        &:hover, &:active {
-          opacity: 0.5;
+      .moves {
+        display: flex;
+        gap: $standard;
+  
+        .undo-move {
+          width: $standard;
+          height: $standard;
+          cursor: pointer;
+  
+          &:hover, &:active {
+            opacity: 0.5;
+          }
         }
       }
     }
@@ -94,6 +99,7 @@ html {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
+    padding-inline: $standard * 1.5;
 
     .playground {
       flex-direction: row;
@@ -101,8 +107,28 @@ html {
       .header {
         flex-direction: column;
         justify-content: flex-start;
-        background-color: inherit;
-        color: inherit;
+        outline: $standard / 1.5 solid $transparent;
+        border-radius: $standard / 3;
+        margin-block: $standard * 2;
+        padding-block: $standard;
+        max-height: 11 * $item-size;
+        width: 15vw;
+
+        p {
+          font-size: $standard * 1.5;
+          margin-bottom: $standard / 2;
+        }
+
+        .levels-list {
+          line-height: $standard * 2;
+          background-color: $semi-transparent;
+
+          .level {
+            font-size: $standard * 0.9;
+            padding: $standard / 2 $standard * 2;
+            border: $thin / 2 solid $transparent;
+          }
+        }
       }
 
       .field {
@@ -111,9 +137,25 @@ html {
         outline: $standard / 1.5 solid $transparent;
         border-radius: $standard / 3;
         margin-block: $standard * 2;
+        flex-shrink: 0;
 
         .field-item {
           width: $pc-item-size;
+        }
+      }
+
+      .footer {
+        outline: $standard / 1.5 solid $transparent;
+        border-radius: $standard / 3;
+        margin-block: $standard * 2;
+        padding-block: $standard;
+        max-height: 11 * $item-size;
+        width: 15vw;
+        background-color: $menu;
+
+        .moves {
+          background-color: $semi-transparent;
+          padding: $standard $standard * 2;
         }
       }
     }
