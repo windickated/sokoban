@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import field from "../data/gameLevels";
 
 interface Device {
@@ -21,9 +22,24 @@ const smallMobileScreenStyling: object | undefined = usersDevice.mobileSmallScre
   justifyContent: 'space-between'
 } : undefined;
 
-let level = 1;
 
 const Playground = () => {
+  const [level, setLevel] = useState(1);
+
+  function switchLevel(number: number) {
+    setLevel(number);
+  }
+
+  useEffect(() => {
+    if (usersDevice.pcWideScreen) {
+      const levelsList: any = document.querySelectorAll('.level');
+      Array.from(levelsList)?.map((listItem: any) => {
+        if (Number(listItem.id) === level) listItem.style.backgroundColor = '#7f7f7f';
+        else listItem.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+      })
+    }
+  }, [level])
+
   return (
     <section className="playground">
       <div className="header">
@@ -37,14 +53,14 @@ const Playground = () => {
           <ul>
             {
             field.map((_, index) => (
-              <li className="level" key={index + 1}>Level: {index + 1}</li>
+              <li className="level" id={(index + 1).toString()} key={index + 1} onClick={() => switchLevel(index + 1)}>Level: {index + 1}</li>
             ))
             }
           </ul>
           :
           <div>
             <p>Level: </p>
-            <select className="level" >
+            <select className="level" onChange={() => switchLevel(Number((document.querySelector('.level') as HTMLSelectElement)?.value))}>
               {field.map((_, index) => (
                 <option value={index + 1} key={index + 1}>{index + 1}</option>
               ))}
