@@ -1,7 +1,7 @@
 // Breakpoints
 $mobile: 'max-width: 768px';
-$short-mobile: 'max-height: 700px';
-$pc: 'min-width: 1024px';
+$pc: 'min-width: 1280px';
+$small-screen: '(max-height: 640px) and (max-width: 768px)';
 
 // Fonts
 $main-font: monospace;

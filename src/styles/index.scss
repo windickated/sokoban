@@ -48,7 +48,7 @@ html {
         align-items: center;
 
         img {
-          width: $standard;
+          width: $standard * 0.85;
           opacity: 0.5;
           cursor: pointer;
 
@@ -157,6 +157,33 @@ html {
           width: 50vw;
         }
       }
+
+      .play-instructions {
+        width: 100vw;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: $standard;
+        margin: $standard;
+        padding-inline: $large;
+
+        .instruction {
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+          gap: $standard * 2;
+
+          strong {
+            font-weight: $bold;
+          }
+
+          img {
+            aspect-ratio: initial;
+            width: $large / 2;
+          }
+        }
+      }
     }
   }
 }
@@ -245,24 +272,40 @@ html {
         }
 
         .play-instructions {
-          display: flex;
           flex-flow: column nowrap;
-          gap: $standard;
           font-size: $standard * 0.9;
           padding: $standard $standard * 2;
           background-color: $semi-transparent;
-          margin: $standard;
           margin-bottom: 0;
+          width: $large * 2.5;
 
-          strong {
-            font-weight: $bold;
+          .instruction {
+  
+            img {
+              width: auto;
+            }
           }
 
-          img {
-            aspect-ratio: initial;
-          }
         }
       }
     }
+  }
+}
+
+
+@media screen and ($mobile) {
+  html {
+    .playground {
+      .field {
+        margin-block: $standard * 1.5;
+      }
+    }
+  }
+}
+
+
+@media screen and ($small-screen) {
+  .mobile-controller {
+    display: none;
   }
 }

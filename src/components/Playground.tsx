@@ -1,12 +1,27 @@
 import field from "../data/gameLevels";
 
-let level = 1;
-const mobileDevice: boolean = window.outerWidth <= 768 ? true : false;
-const shortMobile: boolean = (mobileDevice && window.outerHeight <= 700) ? true : false;
-const shortMobileStyling: object | undefined = shortMobile ? {
+interface Device {
+  pc: boolean
+  pcWideScreen: boolean
+  mobile: boolean
+  mobileSmallScreen: boolean
+  touchScreen: boolean
+}
+
+const usersDevice: Device = {
+  pc: window.outerWidth > 1024 ? true : false,
+  pcWideScreen: window.outerWidth >= 1280 ? true : false,
+  mobile: window.outerWidth < 768 ? true : false,
+  mobileSmallScreen: (window.outerWidth < 768 && window.outerHeight <= 700) ? true : false,
+  touchScreen: "ontouchstart" in document.documentElement ? true : false
+}
+
+const smallMobileScreenStyling: object | undefined = usersDevice.mobileSmallScreen ? {
   flexFlow: 'row nowrap',
   justifyContent: 'space-between'
 } : undefined;
+
+let level = 1;
 
 const Playground = () => {
   return (
@@ -17,8 +32,16 @@ const Playground = () => {
           <img src="info.png" alt="info" />
         </div>
         {
-          mobileDevice
+          usersDevice.pcWideScreen
           ?
+          <ul>
+            {
+            field.map((_, index) => (
+              <li className="level" key={index + 1}>Level: {index + 1}</li>
+            ))
+            }
+          </ul>
+          :
           <div>
             <p>Level: </p>
             <select className="level" >
@@ -27,14 +50,6 @@ const Playground = () => {
               ))}
             </select>
           </div>
-          :
-          <ul>
-            {
-            field.map((_, index) => (
-              <li className="level" key={index + 1}>Level: {index + 1}</li>
-            ))
-            }
-          </ul>
         }
       </div>
       <section className="field">
@@ -80,17 +95,17 @@ const Playground = () => {
         ))}
       </section>
       <div className="footer">
-        <div className="controls" style={shortMobileStyling}>
+        <div className="controls" style={smallMobileScreenStyling}>
           <div className="moves">
             <img className="undo-move" src="undo.png" alt="Undo" />
             <p className="moves-counter">Moves: 0</p>
           </div>
           <button className="restart">
-            {shortMobile ? 'Restart' : 'Start over again'}
+            {usersDevice.mobileSmallScreen ? 'Restart' : 'Start over again'}
           </button>
         </div>
         {
-          mobileDevice
+          usersDevice.mobile
           ?
           <div className="mobile-controller">
             <div>
@@ -103,16 +118,20 @@ const Playground = () => {
           </div>
           :
           <div className="play-instructions">
-            <p className="instruction">
-              <strong>R</strong> - Restart
-            </p>
-            <p className="instruction">
-              <strong>Q</strong> - Undo move
-            </p>
-            <p className="instruction">
-              Use arrows to move:
-            </p>
-            <img src="arrows.png" alt="Arrows" />
+            <div className="instruction">
+              <p>
+                <strong>R</strong> - Restart
+              </p>
+              <p>
+                <strong>Q</strong> - Undo move
+              </p>
+            </div>
+            <div className="instruction">
+              <p>
+                Use arrows to move:
+              </p>
+              <img src="arrows.png" alt="Arrows" />
+            </div>
           </div>
         }
       </div>
