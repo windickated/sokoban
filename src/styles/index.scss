@@ -82,7 +82,7 @@ html {
     .field {
       display: grid;
       grid-template-rows: repeat(11, $item-size);
-      width: $item-size * 13;
+      width: 100vw;
       margin-inline: auto;
       margin-block: $standard;
       background-image: url('cover.jpg');
@@ -102,7 +102,7 @@ html {
 
       .controls {
         display: flex;
-        flex-flow: column nowrap;
+        flex-flow: row nowrap;
         align-items: center;
         gap: $standard;
         color: $light;
@@ -261,6 +261,7 @@ html {
         background-color: $menu;
 
         .controls {
+          flex-direction: column;
           
           .moves {
             background-color: $semi-transparent;
@@ -298,6 +299,13 @@ html {
     .playground {
       .field {
         margin-block: $standard * 1.5;
+      }
+
+      .footer {
+
+        .controls {
+          flex-direction: column;
+        }
       }
     }
   }
