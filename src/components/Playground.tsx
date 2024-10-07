@@ -1,12 +1,9 @@
-import field from "../data/gameLevels";
-
-
-function Playground ({ level}: any) {
+function Playground ({gameField}: any) {
   return (
     <section className="playground">
-      {field[level - 1].map((row, i) => (
+      {gameField.map((row: number[], i: number) => (
         <div className="field-row" key={i + 1}>
-          {row.map((item, j) => {
+          {row.map((item: number, j: number) => {
             let itemObject: undefined | 'point' | 'box' | 'wall' | 'bulldozer';
             let emptyItemStyling: object | undefined = undefined;
             switch(item) {

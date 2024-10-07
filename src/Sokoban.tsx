@@ -1,5 +1,6 @@
 import { useState } from "react"
 import "./styles/index.scss"
+import field from "./data/gameLevels"
 import Playground from "./components/Playground"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
@@ -21,15 +22,17 @@ function Sokoban() {
   }
 
   const [level, setLevel] = useState(1);
+  const [currentMove, setCurrentMove] = useState(field[level - 1])
 
   function switchLevel(number: number) {
     setLevel(number);
+    setCurrentMove(field[number - 1]);
   }
   
   return (
     <section className="game">
       <Header device={usersDevice} level={level} switchLevel={switchLevel} />
-      <Playground level={level} />
+      <Playground gameField={currentMove} />
       <Footer device={usersDevice} />
     </section>
   )
