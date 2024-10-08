@@ -54,7 +54,6 @@ function Sokoban() {
     })
     setCheckPoints(checkPointsArray);
   }
-  
 
   return (
     <section className="game">
@@ -64,8 +63,8 @@ function Sokoban() {
     </section>
   )
 
-
   function handleMove(move: string) {
+    let newPlayerPosition: any = [];
     let playerPosition: any;
     let nextPosition: any;
     let positionBehindTheBox: any;
@@ -74,7 +73,7 @@ function Sokoban() {
     // get the Player's position index
     currentMove.map((row, i) => {
       row.map((item, j) => {
-        if (item == 4) playerPosition = [i, j]
+        if (item == 4) playerPosition = [i, j];
       })
     })
     // get the next move's position index
@@ -107,6 +106,8 @@ function Sokoban() {
       // nextPosition is a CHECK POINT or EMPTY
       playgroundArray[playerPosition[0]][playerPosition[1]] = 0;
       playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] = 4;
+      newPlayerPosition[0] = playerPosition[0] + nextPosition[0];
+      newPlayerPosition[1] = playerPosition[1] + nextPosition[1];
     } else if (playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] === 3
       || playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] === 5
     ) {
@@ -116,22 +117,51 @@ function Sokoban() {
           playgroundArray[playerPosition[0] + positionBehindTheBox[0]][playerPosition[1] + positionBehindTheBox[1]] = 5;
           playgroundArray[playerPosition[0]][playerPosition[1]] = 0;
           playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] = 4;
+          newPlayerPosition[0] = playerPosition[0] + nextPosition[0];
+          newPlayerPosition[1] = playerPosition[1] + nextPosition[1];
           break;
         }
         case 0: {
           playgroundArray[playerPosition[0] + positionBehindTheBox[0]][playerPosition[1] + positionBehindTheBox[1]] = 3;
           playgroundArray[playerPosition[0]][playerPosition[1]] = 0;
           playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] = 4;
+          newPlayerPosition[0] = playerPosition[0] + nextPosition[0];
+          newPlayerPosition[1] = playerPosition[1] + nextPosition[1];
           break;
         }
       }
+    } else {
+      newPlayerPosition = playerPosition.slice();
     }
+    
     // render the Check Point again if its position is EMPTY
     checkPoints.map((point) => {
       if (playgroundArray[point[0]][point[1]] === 0) playgroundArray[point[0]][point[1]] = 2;
     })
     setCurrentMove(playgroundArray);
+
+    let bulldozer: any = document.getElementById(newPlayerPosition[0]?.toString() + newPlayerPosition[1]?.toString());
+    switch (move) {
+    case 'ArrowUp': {
+      bulldozer.style.transform = 'none';
+      break;
+    }
+    case 'ArrowRight': {
+      bulldozer.style.transform = 'rotate(90deg)';
+      break;
+    }
+    case 'ArrowDown': {
+      bulldozer.style.transform = 'rotate(180deg)';
+      break;
+    }
+    case 'ArrowLeft': {
+      bulldozer.style.transform = 'rotate(270deg)';
+      break;
+    }
   }
+  let oldBulldozer: any = document.getElementById(playerPosition[0].toString() + playerPosition[1].toString())
+  oldBulldozer.style.transform = 'none';
+}
 }
 
 
