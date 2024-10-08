@@ -1,8 +1,8 @@
-function Playground ({gameField}: any) {
+function Playground ({playField}: any) {
 
   return (
     <section className="playground">
-      {gameField.map((row: number[], i: number) => (
+      {playField.map((row: any, i: number) => (
         <div className="field-row" key={i + 1}>
           {row.map((item: number, j: number) => {
             let itemObject: undefined | 'point' | 'box' | 'wall' | 'bulldozer' | 'box-active';
