@@ -25,11 +25,16 @@ const usersDevice: Device = {
 function Sokoban() {
   const [level, setLevel] = useState(1);
   const [currentMove, setCurrentMove] = useState(field[level - 1]);
+  const [checkPoints, setCheckPoints] = useState([]);
 
   const documentRef = useRef(document);
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key.match('Arrow')) handleMove(event.key);
   } 
+
+  useEffect(() => {
+    switchLevel(1);
+  }, [])
 
   useEffect(() => {
       documentRef.current.addEventListener('keydown', handleKeyDown);
@@ -39,78 +44,93 @@ function Sokoban() {
   }, [currentMove])
 
   function switchLevel(number: number) {
+    const checkPointsArray: any = [];
     setLevel(number);
     setCurrentMove(field[number - 1]);
+    field[number - 1].map((row, i) => {
+      row.map((item, j) => {
+        if (item == 2) checkPointsArray.push([i, j])
+      })
+    })
+    setCheckPoints(checkPointsArray);
   }
   
 
   return (
     <section className="game">
       <Header device={usersDevice} level={level} switchLevel={switchLevel} />
-      <Playground gameField={currentMove} />
-      <Footer device={usersDevice} />
+        <Playground gameField={currentMove} />
+      <Footer device={usersDevice} level={level} switchLevel={switchLevel} />
     </section>
   )
 
 
   function handleMove(move: string) {
-    let bulldozerPosition: any;
-    let checkPoint: any;
-    let boxCheckPoint: any;
+    let playerPosition: any;
+    let nextPosition: any;
+    let positionBehindTheBox: any;
     const playgroundArray: number[][] = currentMove.slice();
 
+    // get the Player's position index
     currentMove.map((row, i) => {
       row.map((item, j) => {
-        if (item == 4) bulldozerPosition = [i, j]
+        if (item == 4) playerPosition = [i, j]
       })
     })
-
+    // get the next move's position index
     switch (move) {
       case 'ArrowUp': {
-        checkPoint = [-1, 0];
-        boxCheckPoint = [-2, 0];
+        nextPosition = [-1, 0];
+        positionBehindTheBox = [-2, 0];
         break;
       }
       case 'ArrowRight': {
-        checkPoint = [0, 1];
-        boxCheckPoint = [0, 2];
+        nextPosition = [0, 1];
+        positionBehindTheBox = [0, 2];
         break;
       }
       case 'ArrowDown': {
-        checkPoint = [1, 0];
-        boxCheckPoint = [2, 0];
+        nextPosition = [1, 0];
+        positionBehindTheBox = [2, 0];
         break;
       }
       case 'ArrowLeft': {
-        checkPoint = [0, -1];
-        boxCheckPoint = [0, -2];
+        nextPosition = [0, -1];
+        positionBehindTheBox = [0, -2];
         break;
       }
     }
 
-    switch (playgroundArray[bulldozerPosition[0] + checkPoint[0]][bulldozerPosition[1] + checkPoint[1]]) {
-      case 0: {
-        playgroundArray[bulldozerPosition[0]][bulldozerPosition[1]] = 0;
-        playgroundArray[bulldozerPosition[0] + checkPoint[0]][bulldozerPosition[1] + checkPoint[1]] = 4;
-        setCurrentMove(playgroundArray);
-        break;
-      }
-      case 2: {
-        playgroundArray[bulldozerPosition[0]][bulldozerPosition[1]] = 0;
-        playgroundArray[bulldozerPosition[0] + checkPoint[0]][bulldozerPosition[1] + checkPoint[1]] = 4;
-        setCurrentMove(playgroundArray);
-        break;
-      }
-      case 3: {
-        if (playgroundArray[bulldozerPosition[0] + boxCheckPoint[0]][bulldozerPosition[1] + boxCheckPoint[1]] != 1) {
-          playgroundArray[bulldozerPosition[0]][bulldozerPosition[1]] = 0;
-          playgroundArray[bulldozerPosition[0] + checkPoint[0]][bulldozerPosition[1] + checkPoint[1]] = 4;
-          playgroundArray[bulldozerPosition[0] + boxCheckPoint[0]][bulldozerPosition[1] + boxCheckPoint[1]] = 3;
-          setCurrentMove(playgroundArray);
+    if (playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] === 0
+      || playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] === 2
+    ) {
+      // nextPosition is a CHECK POINT or EMPTY
+      playgroundArray[playerPosition[0]][playerPosition[1]] = 0;
+      playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] = 4;
+    } else if (playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] === 3
+      || playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] === 5
+    ) {
+      // nextPosition is a BOX or ACTIVE BOX
+      switch (playgroundArray[playerPosition[0] + positionBehindTheBox[0]][playerPosition[1] + positionBehindTheBox[1]]) {
+        case 2: {
+          playgroundArray[playerPosition[0] + positionBehindTheBox[0]][playerPosition[1] + positionBehindTheBox[1]] = 5;
+          playgroundArray[playerPosition[0]][playerPosition[1]] = 0;
+          playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] = 4;
+          break;
         }
-        break;
+        case 0: {
+          playgroundArray[playerPosition[0] + positionBehindTheBox[0]][playerPosition[1] + positionBehindTheBox[1]] = 3;
+          playgroundArray[playerPosition[0]][playerPosition[1]] = 0;
+          playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] = 4;
+          break;
+        }
       }
     }
+    // render the Check Point again if its position is EMPTY
+    checkPoints.map((point) => {
+      if (playgroundArray[point[0]][point[1]] === 0) playgroundArray[point[0]][point[1]] = 2;
+    })
+    setCurrentMove(playgroundArray);
   }
 }
 

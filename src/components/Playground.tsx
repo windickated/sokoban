@@ -5,7 +5,7 @@ function Playground ({gameField}: any) {
       {gameField.map((row: number[], i: number) => (
         <div className="field-row" key={i + 1}>
           {row.map((item: number, j: number) => {
-            let itemObject: undefined | 'point' | 'box' | 'wall' | 'bulldozer';
+            let itemObject: undefined | 'point' | 'box' | 'wall' | 'bulldozer' | 'box-active';
             let emptyItemStyling: object | undefined = undefined;
             switch(item) {
               case 1: {
@@ -22,6 +22,10 @@ function Playground ({gameField}: any) {
               }
               case 4: {
                 itemObject = 'bulldozer';
+                break;
+              }
+              case 5: {
+                itemObject = 'box-active';
                 break;
               }
               default: {
