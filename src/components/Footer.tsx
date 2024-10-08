@@ -1,4 +1,5 @@
 const Footer = ({device}: any) => {
+
   return (
     <div className="footer">
         <div className="controls" >
@@ -43,5 +44,6 @@ const Footer = ({device}: any) => {
       </div>
   )
 }
+
 
 export default Footer

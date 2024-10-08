@@ -1,4 +1,5 @@
 function Playground ({gameField}: any) {
+
   return (
     <section className="playground">
       {gameField.map((row: number[], i: number) => (
@@ -31,11 +32,11 @@ function Playground ({gameField}: any) {
             return (
               <img
                 className="field-item"
-                id={"field-item-" + (i + 1) + '-' + (j + 1)}
+                id={(i).toString() + (j).toString()}
                 style={emptyItemStyling}
                 src={"/" + itemObject + ".jpg"}
                 alt={itemObject}
-                key={(i + 1).toString() + (j + 1).toString()}
+                key={(i).toString() + (j).toString()}
               />
             )
           })}
@@ -44,5 +45,6 @@ function Playground ({gameField}: any) {
     </section>
   )
 }
+
 
 export default Playground

@@ -13,6 +13,7 @@ const Header = ({device, level, switchLevel}: any) => {
     }
   }, [level])
 
+  
   return (
     <div className="header">
         <div className="title">
@@ -42,5 +43,6 @@ const Header = ({device, level, switchLevel}: any) => {
       </div>
   )
 }
+
 
 export default Header
