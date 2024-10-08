@@ -58,7 +58,7 @@ function Sokoban() {
   return (
     <section className="game">
       <Header device={usersDevice} level={level} switchLevel={switchLevel} />
-        <Playground playField={currentMove} />
+      <Playground playField={currentMove} />
       <Footer device={usersDevice} level={level} switchLevel={switchLevel} />
     </section>
   )
