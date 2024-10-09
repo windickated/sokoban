@@ -1,4 +1,4 @@
-const Footer = ({device, level, history, switchLevel, undo, follow}: any) => {
+const Footer = ({device, level, history, switchLevel, undo, follow, win}: any) => {
 
   return (
     <div className="footer">
@@ -12,7 +12,7 @@ const Footer = ({device, level, history, switchLevel, undo, follow}: any) => {
           </button>
         </div>
         <section className="moves-history">
-          <p className="history-title">Moves history:</p>
+          <p className="history-title">{win() ? 'You won!' : 'Moves history:'}</p>
           <div className="history">
             {
               history.map((_: number[][], index: number) => {

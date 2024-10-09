@@ -75,7 +75,7 @@ function Sokoban() {
     <section className="game">
       <Header device={usersDevice} level={level} switchLevel={switchLevel} />
       <Playground playField={currentMove} />
-      <Footer device={usersDevice} level={level} switchLevel={switchLevel} undo={undoMove} history={history} follow={goToMove} />
+      <Footer device={usersDevice} level={level} switchLevel={switchLevel} undo={undoMove} history={history} follow={goToMove} win={winCondition} />
     </section>
   )
 
@@ -201,6 +201,7 @@ function Sokoban() {
 
 
   function undoMove() {
+    if (winCondition()) return;
     if (history.length > 1) {
       setCurrentMove(history[history.length - 2]);
       setHistory(history.slice(0, history.length - 1));
@@ -211,14 +212,13 @@ function Sokoban() {
   }
 
   function goToMove(number: number) {
-    if (number !== history.length - 1 || number === 0) {
-      if (number === 0) {
-        setCurrentMove(structuredClone(field[level - 1]));
-        setHistory(new Array);
-      } else {
-        setCurrentMove(history[number]);
-        setHistory(history.slice(0, number + 1));
-      }
+    if (number === history.length - 1) return;
+    if (number === 0) {
+      setCurrentMove(structuredClone(field[level - 1]));
+      setHistory(new Array);
+    } else {
+      setCurrentMove(history[number]);
+      setHistory(history.slice(0, number + 1));
     }
   }
 }
