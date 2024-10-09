@@ -167,18 +167,22 @@ function Sokoban() {
     if (winCondition(level)) console.log('You won!');
   }
 
+  
   function winCondition(currentLevel: number) {
     let win: boolean = true;
     currentMove.map((row) => {
       row.map((item) => {
-        if (item == 2) win = false;
+        if (item == 3) win = false;
       })
     })
 
-    if (usersDevice.pcWideScreen && win) {
+    if (win) {
       const levelsList = Array.from(document.querySelectorAll('.level'));
       levelsList.map((level: any) => {
-        if (level.id == currentLevel) level.style.backgroundColor = '#19913a';
+        if (level.id == currentLevel) {
+          level.classList.add('completed');
+          if (usersDevice.pcWideScreen) level.style.backgroundColor = '#19913a';
+        }
       })
     }
 

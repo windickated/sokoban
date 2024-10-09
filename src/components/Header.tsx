@@ -7,8 +7,10 @@ const Header = ({device, level, switchLevel}: any) => {
     if (device.pcWideScreen) {
       const levelsList: any = document.querySelectorAll('.level');
       Array.from(levelsList)?.map((listItem: any) => {
-        if (Number(listItem.id) === level) listItem.style.backgroundColor = '#7f7f7f';
-        else listItem.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        if (!listItem.className.match('completed')) {
+          if (Number(listItem.id) === level) listItem.style.backgroundColor = '#7f7f7f';
+          else listItem.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        }
       })
     }
   }, [level])
