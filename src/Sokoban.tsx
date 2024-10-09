@@ -31,11 +31,9 @@ function Sokoban() {
   const documentRef = useRef(document);
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key.match('Arrow')) handleMove(event.key);
+    if (event.key.toLowerCase() === 'u') undoMove();
+    if (event.key.toLowerCase() === 'r') switchLevel(level);
   } 
-
-  useEffect(() => {
-    console.log(history)
-  })
 
   useEffect(() => {
     switchLevel(1);
@@ -43,10 +41,21 @@ function Sokoban() {
 
   useEffect(() => {
       documentRef.current.addEventListener('keydown', handleKeyDown);
+      // check if player has completed the level
+      if (winCondition()) {
+        const levelsList = Array.from(document.querySelectorAll('.level'));
+        levelsList.map((item: any) => {
+          if (item.id == level) {
+            item.classList.add('completed');
+            if (usersDevice.pcWideScreen) item.style.backgroundColor = '#19913a';
+          }
+        })
+      }
       return () => {
         documentRef.current.removeEventListener('keydown', handleKeyDown);
       }
   }, [currentMove])
+
 
   function switchLevel(number: number) {
     const checkPointsArray: any = [];
@@ -61,6 +70,7 @@ function Sokoban() {
     setCheckPoints(checkPointsArray);
   }
 
+
   return (
     <section className="game">
       <Header device={usersDevice} level={level} switchLevel={switchLevel} />
@@ -69,8 +79,9 @@ function Sokoban() {
     </section>
   )
 
+  
   function handleMove(move: string) {
-    if (winCondition(level)) return;
+    if (winCondition()) return;
     
     let newPlayerPosition: any = [];
     let playerPosition: any;
@@ -174,28 +185,16 @@ function Sokoban() {
     }
     let oldBulldozer: any = document.getElementById(playerPosition[0].toString() + playerPosition[1].toString())
     oldBulldozer.style.transform = 'none';
-
-    if (winCondition(level)) console.log('You won!');
   }
 
 
-  function winCondition(currentLevel: number) {
+  function winCondition() {
     let win: boolean = true;
     currentMove.map((row) => {
       row.map((item) => {
         if (item == 3) win = false;
       })
     })
-
-    if (win) {
-      const levelsList = Array.from(document.querySelectorAll('.level'));
-      levelsList.map((level: any) => {
-        if (level.id == currentLevel) {
-          level.classList.add('completed');
-          if (usersDevice.pcWideScreen) level.style.backgroundColor = '#19913a';
-        }
-      })
-    }
 
     return win;
   }
@@ -205,6 +204,9 @@ function Sokoban() {
     if (history.length > 1) {
       setCurrentMove(history[history.length - 2]);
       setHistory(history.slice(0, history.length - 1));
+    } else {
+      setCurrentMove(structuredClone(field[level - 1]));
+      setHistory(new Array);
     }
   }
 
