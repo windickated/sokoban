@@ -24,7 +24,7 @@ const usersDevice: Device = {
 
 function Sokoban() {
   const [level, setLevel] = useState(1);
-  const [currentMove, setCurrentMove] = useState(field[level - 1]);
+  const [currentMove, setCurrentMove] = useState(field[level - 1].slice());
   const [checkPoints, setCheckPoints] = useState([]);
 
   const documentRef = useRef(document);
@@ -46,7 +46,7 @@ function Sokoban() {
   function switchLevel(number: number) {
     const checkPointsArray: any = [];
     setLevel(number);
-    setCurrentMove(field[number - 1]);
+    setCurrentMove(field[number - 1].slice());
     field[number - 1].map((row, i) => {
       row.map((item, j) => {
         if (item == 2) checkPointsArray.push([i, j])
@@ -64,6 +64,8 @@ function Sokoban() {
   )
 
   function handleMove(move: string) {
+    if (winCondition(level)) return;
+    
     let newPlayerPosition: any = [];
     let playerPosition: any;
     let nextPosition: any;
@@ -142,26 +144,46 @@ function Sokoban() {
 
     let bulldozer: any = document.getElementById(newPlayerPosition[0]?.toString() + newPlayerPosition[1]?.toString());
     switch (move) {
-    case 'ArrowUp': {
-      bulldozer.style.transform = 'none';
-      break;
+      case 'ArrowUp': {
+        bulldozer.style.transform = 'none';
+        break;
+      }
+      case 'ArrowRight': {
+        bulldozer.style.transform = 'rotate(90deg)';
+        break;
+      }
+      case 'ArrowDown': {
+        bulldozer.style.transform = 'rotate(180deg)';
+        break;
+      }
+      case 'ArrowLeft': {
+        bulldozer.style.transform = 'rotate(270deg)';
+        break;
+      }
     }
-    case 'ArrowRight': {
-      bulldozer.style.transform = 'rotate(90deg)';
-      break;
-    }
-    case 'ArrowDown': {
-      bulldozer.style.transform = 'rotate(180deg)';
-      break;
-    }
-    case 'ArrowLeft': {
-      bulldozer.style.transform = 'rotate(270deg)';
-      break;
-    }
+    let oldBulldozer: any = document.getElementById(playerPosition[0].toString() + playerPosition[1].toString())
+    oldBulldozer.style.transform = 'none';
+
+    if (winCondition(level)) console.log('You won!');
   }
-  let oldBulldozer: any = document.getElementById(playerPosition[0].toString() + playerPosition[1].toString())
-  oldBulldozer.style.transform = 'none';
-}
+
+  function winCondition(currentLevel: number) {
+    let win: boolean = true;
+    currentMove.map((row) => {
+      row.map((item) => {
+        if (item == 2) win = false;
+      })
+    })
+
+    if (usersDevice.pcWideScreen && win) {
+      const levelsList = Array.from(document.querySelectorAll('.level'));
+      levelsList.map((level: any) => {
+        if (level.id == currentLevel) level.style.backgroundColor = '#19913a';
+      })
+    }
+
+    return win;
+  }
 }
 
 
