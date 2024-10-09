@@ -61,7 +61,7 @@ function Sokoban() {
     <section className="game">
       <Header device={usersDevice} level={level} switchLevel={switchLevel} />
       <Playground playField={currentMove} />
-      <Footer device={usersDevice} level={level} switchLevel={switchLevel} undoMove={undoMove} />
+      <Footer device={usersDevice} level={level} switchLevel={switchLevel} undo={undoMove} history={history} />
     </section>
   )
 
@@ -199,7 +199,6 @@ function Sokoban() {
     if (history.length > 1) {
       setCurrentMove(history[history.length - 2]);
       setHistory(history.slice(0, history.length - 1));
-      console.log(history)
     }
   }
 }

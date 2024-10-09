@@ -135,6 +135,37 @@ html {
         }
       }
 
+      .moves-history {
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
+
+        .history-title {
+          padding-top: $standard;
+          padding-bottom: $standard / 2;
+        }
+  
+        .history {
+          max-width: 100vw;
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: flex-end;
+          gap: $standard;
+          padding: $standard / 2;
+          background-color: $gray;
+  
+          .move {
+            background-color: $menu;
+            padding: $standard;
+            cursor: pointer;
+
+            &:hover, &:active {
+              opacity: 0.75;
+            }
+          }
+        }
+      }
+
       .mobile-controller {
         position: fixed;
         bottom: 0;
@@ -269,6 +300,30 @@ html {
   
           .restart {
             background-color: $semi-transparent;
+          }
+        }
+
+        .moves-history {
+
+          .history-title {
+            color: $light;
+          }
+
+          .history {
+            max-width: $large * 2.5;
+            max-height: $large * 1.75;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-end;
+            column-gap: $standard / 1.5;
+            row-gap: $standard;
+            background-color: $semi-transparent;
+            overflow-y: scroll;
+
+            .move {
+              padding: $standard / 2;
+              background-color: $gray;
+            }
           }
         }
 

@@ -1,16 +1,28 @@
-const Footer = ({device, level, switchLevel, undoMove}: any) => {
+const Footer = ({device, level, history, switchLevel, undo}: any) => {
 
   return (
     <div className="footer">
         <div className="controls" >
           <div className="moves">
-            <img className="undo-move" src="undo.png" alt="Undo" onClick={undoMove} />
+            <img className="undo-move" src="undo.png" alt="Undo" onClick={undo} />
             <p className="moves-counter">Moves: 0</p>
           </div>
           <button className="restart" onClick={() => switchLevel(level)}>
             Restart
           </button>
         </div>
+        <section className="moves-history">
+          <p className="history-title">Moves history:</p>
+          <div className="history">
+            {
+              history.map((_: number[][], index: number) => {
+                return (
+                  <p className="move">{index + 1}</p>
+                )
+              })
+            }
+          </div>
+        </section>
         {
           device.mobile
           ?
