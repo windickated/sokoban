@@ -24,7 +24,8 @@ const usersDevice: Device = {
 
 function Sokoban() {
   const [level, setLevel] = useState(1);
-  const [currentMove, setCurrentMove] = useState(field[level - 1].slice());
+  const [currentMove, setCurrentMove] = useState(structuredClone(field[level - 1]));
+  const [history, setHistory] = useState([structuredClone(field[level - 1])])
   const [checkPoints, setCheckPoints] = useState([]);
 
   const documentRef = useRef(document);
@@ -45,13 +46,14 @@ function Sokoban() {
 
   function switchLevel(number: number) {
     const checkPointsArray: any = [];
-    setLevel(number);
-    setCurrentMove(field[number - 1].slice());
     field[number - 1].map((row, i) => {
       row.map((item, j) => {
         if (item == 2) checkPointsArray.push([i, j])
       })
     })
+    setLevel(number);
+    setCurrentMove(structuredClone(field[number - 1].slice()));
+    setHistory([structuredClone(field[number - 1].slice())]);
     setCheckPoints(checkPointsArray);
   }
 
@@ -59,7 +61,7 @@ function Sokoban() {
     <section className="game">
       <Header device={usersDevice} level={level} switchLevel={switchLevel} />
       <Playground playField={currentMove} />
-      <Footer device={usersDevice} level={level} switchLevel={switchLevel} />
+      <Footer device={usersDevice} level={level} switchLevel={switchLevel} undoMove={undoMove} />
     </section>
   )
 
@@ -70,7 +72,7 @@ function Sokoban() {
     let playerPosition: any;
     let nextPosition: any;
     let positionBehindTheBox: any;
-    const playgroundArray: number[][] = currentMove.slice();
+    const playgroundArray: number[][] = structuredClone(currentMove);
 
     // get the Player's position index
     currentMove.map((row, i) => {
@@ -142,6 +144,9 @@ function Sokoban() {
     })
     setCurrentMove(playgroundArray);
 
+    setHistory([...history, playgroundArray]);
+    console.log(history)
+
     let bulldozer: any = document.getElementById(newPlayerPosition[0]?.toString() + newPlayerPosition[1]?.toString());
     switch (move) {
       case 'ArrowUp': {
@@ -167,7 +172,7 @@ function Sokoban() {
     if (winCondition(level)) console.log('You won!');
   }
 
-  
+
   function winCondition(currentLevel: number) {
     let win: boolean = true;
     currentMove.map((row) => {
@@ -187,6 +192,15 @@ function Sokoban() {
     }
 
     return win;
+  }
+
+
+  function undoMove() {
+    if (history.length > 1) {
+      setCurrentMove(history[history.length - 2]);
+      setHistory(history.slice(0, history.length - 1));
+      console.log(history)
+    }
   }
 }
 

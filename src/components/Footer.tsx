@@ -1,14 +1,14 @@
-const Footer = ({device, level, switchLevel}: any) => {
+const Footer = ({device, level, switchLevel, undoMove}: any) => {
 
   return (
     <div className="footer">
         <div className="controls" >
           <div className="moves">
-            <img className="undo-move" src="undo.png" alt="Undo" />
+            <img className="undo-move" src="undo.png" alt="Undo" onClick={undoMove} />
             <p className="moves-counter">Moves: 0</p>
           </div>
           <button className="restart" onClick={() => switchLevel(level)}>
-            {device.mobileSmallScreen ? 'Restart' : 'Start over again'}
+            Restart
           </button>
         </div>
         {
