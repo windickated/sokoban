@@ -156,7 +156,8 @@ html {
   
           .move {
             background-color: $menu;
-            padding: $standard;
+            padding-inline: $standard;
+            padding-block: $standard / 2;
             cursor: pointer;
 
             &:hover, &:active {
@@ -170,22 +171,18 @@ html {
         position: fixed;
         bottom: 0;
         margin-block: $standard;
-
-        div {
-          position: absolute;
-          opacity: 0.75;
-
-          img {
-            display: none;
-          }
-
-          .visible {
-            display: block;
-          }
-        }
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: center;
 
         img {
-          width: 50vw;
+          width: 10vh;
+        }
+
+        div {
+          display: flex;
+          flex-flow: row nowrap;
+          gap: $large;
         }
       }
 
