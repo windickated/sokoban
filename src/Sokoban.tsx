@@ -25,13 +25,17 @@ const usersDevice: Device = {
 function Sokoban() {
   const [level, setLevel] = useState(1);
   const [currentMove, setCurrentMove] = useState(structuredClone(field[level - 1]));
-  const [history, setHistory] = useState([structuredClone(field[level - 1])])
+  const [history, setHistory] = useState(new Array)
   const [checkPoints, setCheckPoints] = useState([]);
 
   const documentRef = useRef(document);
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key.match('Arrow')) handleMove(event.key);
   } 
+
+  useEffect(() => {
+    console.log(history)
+  })
 
   useEffect(() => {
     switchLevel(1);
@@ -52,8 +56,8 @@ function Sokoban() {
       })
     })
     setLevel(number);
-    setCurrentMove(structuredClone(field[number - 1].slice()));
-    setHistory([structuredClone(field[number - 1].slice())]);
+    setCurrentMove(structuredClone(field[number - 1]));
+    setHistory(new Array);
     setCheckPoints(checkPointsArray);
   }
 
@@ -61,7 +65,7 @@ function Sokoban() {
     <section className="game">
       <Header device={usersDevice} level={level} switchLevel={switchLevel} />
       <Playground playField={currentMove} />
-      <Footer device={usersDevice} level={level} switchLevel={switchLevel} undo={undoMove} history={history} />
+      <Footer device={usersDevice} level={level} switchLevel={switchLevel} undo={undoMove} history={history} follow={goToMove} />
     </section>
   )
 
@@ -112,6 +116,8 @@ function Sokoban() {
       playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] = 4;
       newPlayerPosition[0] = playerPosition[0] + nextPosition[0];
       newPlayerPosition[1] = playerPosition[1] + nextPosition[1];
+      setCurrentMove(playgroundArray);
+      setHistory([...history, playgroundArray]);
     } else if (playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] === 3
       || playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] === 5
     ) {
@@ -123,6 +129,8 @@ function Sokoban() {
           playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] = 4;
           newPlayerPosition[0] = playerPosition[0] + nextPosition[0];
           newPlayerPosition[1] = playerPosition[1] + nextPosition[1];
+          setCurrentMove(playgroundArray);
+          setHistory([...history, playgroundArray]);
           break;
         }
         case 0: {
@@ -131,6 +139,8 @@ function Sokoban() {
           playgroundArray[playerPosition[0] + nextPosition[0]][playerPosition[1] + nextPosition[1]] = 4;
           newPlayerPosition[0] = playerPosition[0] + nextPosition[0];
           newPlayerPosition[1] = playerPosition[1] + nextPosition[1];
+          setCurrentMove(playgroundArray);
+          setHistory([...history, playgroundArray]);
           break;
         }
       }
@@ -142,10 +152,6 @@ function Sokoban() {
     checkPoints.map((point) => {
       if (playgroundArray[point[0]][point[1]] === 0) playgroundArray[point[0]][point[1]] = 2;
     })
-    setCurrentMove(playgroundArray);
-
-    setHistory([...history, playgroundArray]);
-    console.log(history)
 
     let bulldozer: any = document.getElementById(newPlayerPosition[0]?.toString() + newPlayerPosition[1]?.toString());
     switch (move) {
@@ -199,6 +205,18 @@ function Sokoban() {
     if (history.length > 1) {
       setCurrentMove(history[history.length - 2]);
       setHistory(history.slice(0, history.length - 1));
+    }
+  }
+
+  function goToMove(number: number) {
+    if (number !== history.length - 1 || number === 0) {
+      if (number === 0) {
+        setCurrentMove(structuredClone(field[level - 1]));
+        setHistory(new Array);
+      } else {
+        setCurrentMove(history[number]);
+        setHistory(history.slice(0, number + 1));
+      }
     }
   }
 }

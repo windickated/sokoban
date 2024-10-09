@@ -1,11 +1,11 @@
-const Footer = ({device, level, history, switchLevel, undo}: any) => {
+const Footer = ({device, level, history, switchLevel, undo, follow}: any) => {
 
   return (
     <div className="footer">
         <div className="controls" >
           <div className="moves">
             <img className="undo-move" src="undo.png" alt="Undo" onClick={undo} />
-            <p className="moves-counter">Moves: 0</p>
+            <p className="moves-counter">Moves: {history.length}</p>
           </div>
           <button className="restart" onClick={() => switchLevel(level)}>
             Restart
@@ -17,7 +17,7 @@ const Footer = ({device, level, history, switchLevel, undo}: any) => {
             {
               history.map((_: number[][], index: number) => {
                 return (
-                  <p className="move">{index + 1}</p>
+                  <p className="move" onClick={() => follow(index)}>{index + 1}</p>
                 )
               })
             }
