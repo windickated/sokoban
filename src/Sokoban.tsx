@@ -23,6 +23,15 @@ const usersDevice: Device = {
 
 
 function Sokoban() {
+  // const [levelsArray, setLevelsArray] = useState(field.map((lvl, i) => {
+  //   return {
+  //     nr: i + 1,
+  //     level: lvl,
+  //     completed: false,
+  //     selected: i === 0 ? true : false
+  //   }
+  // }))
+  // console.log(levelsArray)
   const [level, setLevel] = useState(1);
   const [currentMove, setCurrentMove] = useState(structuredClone(field[level - 1]));
   const [history, setHistory] = useState(new Array)
@@ -78,11 +87,11 @@ function Sokoban() {
       <Footer
         device={usersDevice}
         level={level}
-        switchLevel={switchLevel}
-        move={handleMove}
-        undo={undoMove}
         history={history}
-        follow={selectMove}
+        switchLevel={switchLevel}
+        onMove={handleMove}
+        onUndo={undoMove}
+        onSwitchMove={selectMove}
         win={winCondition}
       />
     </section>
@@ -198,7 +207,6 @@ function Sokoban() {
         if (item == 3) win = false;
       })
     })
-
     return win;
   }
 

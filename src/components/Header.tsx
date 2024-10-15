@@ -4,7 +4,7 @@ import field from "../data/gameLevels";
 const Header = ({device, level, switchLevel}: any) => {
   useEffect(() => {
     if (device.pcWideScreen) {
-      const levelsList: any = document.querySelectorAll('.level');
+      const levelsList: NodeList = document.querySelectorAll('.level');
       Array.from(levelsList)?.map((listItem: any) => {
         if (!listItem.className.match('completed')) {
           if (Number(listItem.id) === level) listItem.style.backgroundColor = '#7f7f7f';

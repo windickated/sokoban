@@ -1,10 +1,10 @@
-const Footer = ({device, level, history, switchLevel, move, undo, follow, win}: any) => {
+const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMove, win}: any) => {
 
   return (
     <div className="footer">
         <div className="controls" >
           <div className="moves">
-            <img className="undo-move" src="undo.png" alt="Undo" onClick={undo} />
+            <img className="undo-move" src="undo.png" alt="Undo" onClick={onUndo} />
             <p className="moves-counter">Moves: {history.length}</p>
           </div>
           <button className="restart" onClick={() => switchLevel(level)}>
@@ -17,7 +17,7 @@ const Footer = ({device, level, history, switchLevel, move, undo, follow, win}: 
             {
               history.map((_: number[][], index: number) => {
                 return (
-                  <p className="move" key={index} onClick={() => follow(index)}>{index + 1}</p>
+                  <p className="move" key={index} onClick={() => onSwitchMove(index)}>{index + 1}</p>
                 )
               })
             }
@@ -27,12 +27,12 @@ const Footer = ({device, level, history, switchLevel, move, undo, follow, win}: 
           device.mobile
           ?
           <div className="mobile-controller">
-            <img onClick={() => move('ArrowUp')} src="mobile-button.png" alt="Top" />
+            <img onClick={() => onMove('ArrowUp')} src="mobile-button.png" alt="Top" />
             <div>
-              <img onClick={() => move('ArrowLeft')} style={{transform: 'rotate(270deg)'}} src="mobile-button.png" alt="Left" />
-              <img onClick={() => move('ArrowRight')} style={{transform: 'rotate(90deg)'}} src="mobile-button.png" alt="Right" />
+              <img onClick={() => onMove('ArrowLeft')} style={{transform: 'rotate(270deg)'}} src="mobile-button.png" alt="Left" />
+              <img onClick={() => onMove('ArrowRight')} style={{transform: 'rotate(90deg)'}} src="mobile-button.png" alt="Right" />
             </div>
-            <img onClick={() => move('ArrowDown')} style={{transform: 'rotate(180deg)'}} src="mobile-button.png" alt="Bottom" />
+            <img onClick={() => onMove('ArrowDown')} style={{transform: 'rotate(180deg)'}} src="mobile-button.png" alt="Bottom" />
           </div>
           :
           <div className="play-instructions">
