@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import field from "../data/gameLevels";
 
-
 const Header = ({device, level, switchLevel}: any) => {
   useEffect(() => {
     if (device.pcWideScreen) {
@@ -14,7 +13,6 @@ const Header = ({device, level, switchLevel}: any) => {
       })
     }
   }, [level])
-
   
   return (
     <div className="header">
@@ -45,6 +43,5 @@ const Header = ({device, level, switchLevel}: any) => {
       </div>
   )
 }
-
 
 export default Header

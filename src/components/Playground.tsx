@@ -1,12 +1,14 @@
+import Square from "./Square";
+
 function Playground ({playField}: any) {
 
   return (
     <section className="playground">
-      {playField.map((row: any, i: number) => (
+      {playField.map((row: number[], i: number) => (
         <div className="field-row" key={i + 1}>
           {row.map((item: number, j: number) => {
-            let itemObject: undefined | 'point' | 'box' | 'wall' | 'bulldozer' | 'box-active';
-            let emptyItemStyling: object | undefined = undefined;
+            type Item = undefined | 'point' | 'box' | 'wall' | 'bulldozer' | 'box-active';
+            let itemObject: Item;
             switch(item) {
               case 1: {
                 itemObject = 'wall';
@@ -28,27 +30,14 @@ function Playground ({playField}: any) {
                 itemObject = 'box-active';
                 break;
               }
-              default: {
-                itemObject = undefined;
-                emptyItemStyling = {visibility: 'hidden'};
-              }
+              default: itemObject = undefined;
             }
-            return (
-              <img
-                className="field-item"
-                id={(i).toString() + (j).toString()}
-                style={emptyItemStyling}
-                src={"/" + itemObject + ".jpg"}
-                alt={itemObject}
-                key={(i).toString() + (j).toString()}
-              />
-            )
+            return <Square object={itemObject} i={i} j={j} key={(i).toString() + (j).toString()}/>
           })}
         </div>
       ))}
     </section>
   )
 }
-
 
 export default Playground

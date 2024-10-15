@@ -56,5 +56,4 @@ const Footer = ({device, level, history, switchLevel, move, undo, follow, win}: 
   )
 }
 
-
 export default Footer

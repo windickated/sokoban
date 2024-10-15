@@ -9,7 +9,6 @@ function Square({object, i, j}: any) {
       style={styling}
       src={"/" + object + ".jpg"}
       alt={object}
-      key={(i).toString() + (j).toString()}
     />
   )
 }
