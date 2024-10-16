@@ -20,7 +20,7 @@ const Header = ({device, levels, selectedLevel, switchLevel}: HeaderProps) => {
           <ul>
             {
             levels.map((item: Level, i: number) => {
-              let bgStyling = {
+              let bgStyling: React.CSSProperties = {
                 backgroundColor: item.completed ? '#19913a' : 'rgba(0, 0, 0, 0.5)'
               }
               if (i + 1 === selectedLevel) bgStyling.backgroundColor = '#7f7f7f';
