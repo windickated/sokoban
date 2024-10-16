@@ -1,0 +1,47 @@
+@keyframes openDialog {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes closeDialog {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes openDialogPC {
+  from {
+    opacity: 0;
+    filter: blur(100%);
+    transform: scale(2);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+@keyframes closeDialogPC {
+  from {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    filter: blur(100%);
+    transform: scale(0);
+  }
+}

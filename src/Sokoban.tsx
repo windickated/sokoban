@@ -4,6 +4,7 @@ import field from "./data/gameLevels"
 import Playground from "./components/Playground"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
+import Modal from "./components/Modal"
 
 
 export interface Level {
@@ -45,7 +46,7 @@ function Sokoban() {
   const [currentMove, setCurrentMove] = useState<number[][]>(structuredClone(field[selectedLevel - 1]));
   const [history, setHistory] = useState<number[][][]>(new Array)
   const [checkPoints, setCheckPoints] = useState<number[][]>([[2,5], [4,9], [5,3], [8,6]]);
-
+  const [showModal, setShowModal] = useState<boolean>(false);
   const documentRef = useRef<Document>(document);
 
   const handleKeyDown = (event: KeyboardEvent) => {
@@ -76,6 +77,7 @@ function Sokoban() {
     setCurrentMove(structuredClone(field[number - 1]));
     setHistory(new Array);
     setCheckPoints(checkPointsArray);
+    showModal && setShowModal(false);
   }
 
 
@@ -87,7 +89,14 @@ function Sokoban() {
         selectedLevel={selectedLevel}
         switchLevel={switchLevel}
       />
-      <Playground playField={currentMove} />
+      <Playground playField={currentMove}>
+        <Modal
+          showModal={showModal}
+          completedLevel={selectedLevel}
+          history={history}
+          switchLevel={switchLevel}
+        />
+      </Playground>
       <Footer
         device={usersDevice}
         level={selectedLevel}
@@ -221,6 +230,7 @@ function Sokoban() {
           if (lvl.nr === selectedLevel) lvl.completed = true;
           return lvl;
         }))
+        setShowModal(true);
       }
     }
   }
