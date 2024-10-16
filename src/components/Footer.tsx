@@ -11,7 +11,6 @@ interface FooterProps {
 }
 
 const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMove}: FooterProps) => {
-
   return (
     <div className="footer">
         <div className="controls" >
@@ -23,7 +22,7 @@ const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMo
             Restart
           </button>
         </div>
-        <section className="moves-history">
+        {history.length > 0 && <section className="moves-history">
           <p className="history-title">Moves history:</p>
           <div className="history">
             {
@@ -34,7 +33,7 @@ const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMo
               })
             }
           </div>
-        </section>
+        </section>}
         {
           device.mobile
           ?

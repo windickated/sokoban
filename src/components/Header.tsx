@@ -43,7 +43,7 @@ const Header = ({device, levels, selectedLevel, switchLevel}: HeaderProps) => {
             <p>Level: </p>
             <select className="level" onChange={() => switchLevel(Number((document.querySelector('.level') as HTMLSelectElement)?.value))}>
               {levels.map((_: Level, i: number) => (
-                <option value={i + 1} key={i + 1}>{i + 1}</option>
+                <option value={i + 1} key={i + 1} selected={i + 1 === selectedLevel}>{i + 1}</option>
               ))}
             </select>
           </div>

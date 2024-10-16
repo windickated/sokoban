@@ -89,14 +89,7 @@ function Sokoban() {
         selectedLevel={selectedLevel}
         switchLevel={switchLevel}
       />
-      <Playground playField={currentMove}>
-        <Modal
-          showModal={showModal}
-          completedLevel={selectedLevel}
-          history={history}
-          switchLevel={switchLevel}
-        />
-      </Playground>
+      <Playground playField={currentMove} />
       <Footer
         device={usersDevice}
         level={selectedLevel}
@@ -105,6 +98,12 @@ function Sokoban() {
         onMove={handleMove}
         onUndo={undoMove}
         onSwitchMove={selectMove}
+      />
+      <Modal
+        showModal={showModal}
+        completedLevel={selectedLevel}
+        history={history}
+        switchLevel={switchLevel}
       />
     </section>
   )
