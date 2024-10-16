@@ -1,19 +1,13 @@
-import { useEffect } from "react";
-import field from "../data/gameLevels";
+import { Device } from "../Sokoban";
 
-const Header = ({device, level, switchLevel}: any) => {
-  useEffect(() => {
-    if (device.pcWideScreen) {
-      const levelsList: NodeList = document.querySelectorAll('.level');
-      Array.from(levelsList)?.map((listItem: any) => {
-        if (!listItem.className.match('completed')) {
-          if (Number(listItem.id) === level) listItem.style.backgroundColor = '#7f7f7f';
-          else listItem.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        }
-      })
-    }
-  }, [level])
-  
+interface HeaderProps {
+  device: Device
+  levels: any[]
+  selectedLevel: number
+  switchLevel: Function
+}
+
+const Header = ({device, levels, selectedLevel, switchLevel}: HeaderProps) => {
   return (
     <div className="header">
         <div className="title">
@@ -25,17 +19,31 @@ const Header = ({device, level, switchLevel}: any) => {
           ?
           <ul>
             {
-            field.map((_, index) => (
-              <li className="level" id={(index + 1).toString()} key={index + 1} onClick={() => switchLevel(index + 1)}>Level: {index + 1}</li>
-            ))
+            levels.map((item: any, i: number) => {
+              let bgStyling = {
+                backgroundColor: item.completed ? '#19913a' : 'rgba(0, 0, 0, 0.5)'
+              }
+              if (i + 1 === selectedLevel) bgStyling.backgroundColor = '#7f7f7f';
+              return (
+                <li
+                  className="level"
+                  id={(i + 1).toString()}
+                  key={i + 1}
+                  onClick={() => switchLevel(i + 1)}
+                  style={bgStyling}
+                >
+                  Level: {i + 1}
+                </li>
+              )
+            })
             }
           </ul>
           :
           <div>
             <p>Level: </p>
             <select className="level" onChange={() => switchLevel(Number((document.querySelector('.level') as HTMLSelectElement)?.value))}>
-              {field.map((_, index) => (
-                <option value={index + 1} key={index + 1}>{index + 1}</option>
+              {levels.map((_: object, i: number) => (
+                <option value={i + 1} key={i + 1}>{i + 1}</option>
               ))}
             </select>
           </div>

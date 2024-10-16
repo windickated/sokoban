@@ -6,7 +6,7 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 
 
-interface Device {
+export interface Device {
   pc: boolean
   pcWideScreen: boolean
   mobile: boolean
@@ -23,40 +23,32 @@ const usersDevice: Device = {
 
 
 function Sokoban() {
-  // const [levelsArray, setLevelsArray] = useState(field.map((lvl, i) => {
-  //   return {
-  //     nr: i + 1,
-  //     level: lvl,
-  //     completed: false,
-  //     selected: i === 0 ? true : false
-  //   }
-  // }))
-  // console.log(levelsArray)
-  const [level, setLevel] = useState(1);
-  const [currentMove, setCurrentMove] = useState(structuredClone(field[level - 1]));
+  const [levels, setLevels] = useState(field.map((lvl, i) => {
+    return {
+      nr: i + 1,
+      level: lvl,
+      completed: false,
+      selected: i === 0 ? true : false
+    }
+  }))
+  let selectedLevel: number = 1;
+  levels.map((lvl) => {
+    if (lvl.selected) selectedLevel = lvl.nr;
+  })
+  const [currentMove, setCurrentMove] = useState(structuredClone(field[selectedLevel - 1]));
   const [history, setHistory] = useState(new Array)
-  const [checkPoints, setCheckPoints] = useState([]);
+  const [checkPoints, setCheckPoints] = useState([[2,5], [4,9], [5,3], [8,6]]);
 
   const documentRef = useRef(document);
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key.match('Arrow')) handleMove(event.key);
     if (event.key.toLowerCase() === 'u') undoMove();
-    if (event.key.toLowerCase() === 'r') switchLevel(level);
+    if (event.key.toLowerCase() === 'r') switchLevel(selectedLevel);
   } 
 
   useEffect(() => {
       if (!usersDevice.mobile) documentRef.current.addEventListener('keydown', handleKeyDown);
-      // check if player has completed the level
-      if (winCondition()) {
-        const levelsList = Array.from(document.querySelectorAll('.level'));
-        levelsList.map((item: any) => {
-          if (item.id == level) {
-            item.classList.add('completed');
-            if (usersDevice.pcWideScreen) item.style.backgroundColor = '#19913a';
-          }
-        })
-      }
       return () => {
         if (!usersDevice.mobile) documentRef.current.removeEventListener('keydown', handleKeyDown);
       }
@@ -69,7 +61,11 @@ function Sokoban() {
         if (item == 2) checkPointsArray.push([i, j])
       })
     })
-    setLevel(number);
+    setLevels(levels.map((lvl) => {
+      if (lvl.selected) lvl.selected = false;
+      if (lvl.nr === number) lvl.selected = true;
+      return lvl;
+    }))
     setCurrentMove(structuredClone(field[number - 1]));
     setHistory(new Array);
     setCheckPoints(checkPointsArray);
@@ -80,32 +76,32 @@ function Sokoban() {
     <section className="game">
       <Header
         device={usersDevice}
-        level={level}
+        levels={levels}
+        selectedLevel={selectedLevel}
         switchLevel={switchLevel}
       />
       <Playground playField={currentMove} />
       <Footer
         device={usersDevice}
-        level={level}
+        level={selectedLevel}
         history={history}
         switchLevel={switchLevel}
         onMove={handleMove}
         onUndo={undoMove}
         onSwitchMove={selectMove}
-        win={winCondition}
       />
     </section>
   )
 
   
   function handleMove(move: string) {
-    if (winCondition()) return;
-    
     let newPlayerPosition: any = [];
     let playerPosition: any;
     let nextPosition: any;
     let positionBehindTheBox: any;
     const playgroundArray: number[][] = structuredClone(currentMove);
+
+    if (winCondition()) return;
 
     currentMove.map((row, i) => {
       row.map((item, j) => {
@@ -181,6 +177,8 @@ function Sokoban() {
         case 2: {
           playgroundArray[playerPosition[0] + positionBehindTheBox[0]][playerPosition[1] + positionBehindTheBox[1]] = 5;
           forwardBulldozer();
+          // check if player has won
+          handleWin();
           break;
         }
         case 0: {
@@ -197,26 +195,36 @@ function Sokoban() {
     checkPoints.map((point) => {
       if (playgroundArray[point[0]][point[1]] === 0) playgroundArray[point[0]][point[1]] = 2;
     })
-  }
 
-
-  function winCondition() {
-    let win: boolean = true;
-    currentMove.map((row) => {
-      row.map((item) => {
-        if (item == 3) win = false;
+    function winCondition() {
+      let win: boolean = false;
+      let greenBoxesCount: number = 0;
+      playgroundArray.map((row) => {
+        row.map((item) => {
+          if (item == 5) greenBoxesCount++;
+        })
       })
-    })
-    return win;
+      if (greenBoxesCount === checkPoints.length) win = true;
+      return win;
+    }
+
+    function handleWin() {
+      if (winCondition()) {
+        setLevels(levels.map((lvl) => {
+          if (lvl.nr === selectedLevel) lvl.completed = true;
+          return lvl;
+        }))
+      }
+    }
   }
+
 
   function undoMove() {
-    if (winCondition()) return;
     if (history.length > 1) {
       setCurrentMove(history[history.length - 2]);
       setHistory(history.slice(0, history.length - 1));
     } else {
-      setCurrentMove(structuredClone(field[level - 1]));
+      setCurrentMove(structuredClone(field[selectedLevel - 1]));
       setHistory(new Array);
     }
   }
@@ -224,7 +232,7 @@ function Sokoban() {
   function selectMove(number: number) {
     if (number === history.length - 1) return;
     if (number === 0) {
-      setCurrentMove(structuredClone(field[level - 1]));
+      setCurrentMove(structuredClone(field[selectedLevel - 1]));
       setHistory(new Array);
     } else {
       setCurrentMove(history[number]);

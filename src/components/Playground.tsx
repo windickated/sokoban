@@ -1,13 +1,14 @@
 import Square from "./Square";
 
-function Playground ({playField}: any) {
+export type Item = undefined | 'point' | 'box' | 'wall' | 'bulldozer' | 'box-active';
+
+function Playground ({playField}: {playField: number[][]}) {
 
   return (
     <section className="playground">
       {playField.map((row: number[], i: number) => (
         <div className="field-row" key={i + 1}>
           {row.map((item: number, j: number) => {
-            type Item = undefined | 'point' | 'box' | 'wall' | 'bulldozer' | 'box-active';
             let itemObject: Item;
             switch(item) {
               case 1: {

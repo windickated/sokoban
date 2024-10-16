@@ -1,4 +1,16 @@
-const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMove, win}: any) => {
+import { Device } from "../Sokoban"
+
+interface FooterProps {
+  device: Device
+  level: number
+  history: any[]
+  switchLevel: Function
+  onMove: Function
+  onUndo: VoidFunction
+  onSwitchMove: Function
+}
+
+const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMove}: FooterProps) => {
 
   return (
     <div className="footer">
@@ -12,7 +24,7 @@ const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMo
           </button>
         </div>
         <section className="moves-history">
-          <p className="history-title">{win() ? 'You won!' : 'Moves history:'}</p>
+          <p className="history-title">Moves history:</p>
           <div className="history">
             {
               history.map((_: number[][], index: number) => {
