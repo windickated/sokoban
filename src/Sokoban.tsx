@@ -6,6 +6,13 @@ import Header from "./components/Header"
 import Footer from "./components/Footer"
 
 
+export interface Level {
+  nr: number
+  level: number[][]
+  completed: boolean
+  selected: boolean
+}
+
 export interface Device {
   pc: boolean
   pcWideScreen: boolean
@@ -23,7 +30,7 @@ const usersDevice: Device = {
 
 
 function Sokoban() {
-  const [levels, setLevels] = useState(field.map((lvl, i) => {
+  const [levels, setLevels] = useState<Level[]>(field.map((lvl, i) => {
     return {
       nr: i + 1,
       level: lvl,
@@ -35,11 +42,11 @@ function Sokoban() {
   levels.map((lvl) => {
     if (lvl.selected) selectedLevel = lvl.nr;
   })
-  const [currentMove, setCurrentMove] = useState(structuredClone(field[selectedLevel - 1]));
-  const [history, setHistory] = useState(new Array)
-  const [checkPoints, setCheckPoints] = useState([[2,5], [4,9], [5,3], [8,6]]);
+  const [currentMove, setCurrentMove] = useState<number[][]>(structuredClone(field[selectedLevel - 1]));
+  const [history, setHistory] = useState<number[][][]>(new Array)
+  const [checkPoints, setCheckPoints] = useState<number[][]>([[2,5], [4,9], [5,3], [8,6]]);
 
-  const documentRef = useRef(document);
+  const documentRef = useRef<Document>(document);
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key.match('Arrow')) handleMove(event.key);

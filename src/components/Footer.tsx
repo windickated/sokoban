@@ -3,7 +3,7 @@ import { Device } from "../Sokoban"
 interface FooterProps {
   device: Device
   level: number
-  history: any[]
+  history: number[][][]
   switchLevel: Function
   onMove: Function
   onUndo: VoidFunction
