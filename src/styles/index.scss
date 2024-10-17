@@ -6,12 +6,12 @@
 * {
   font-family: $main-font;
 
-  img {
+  :where(img) {
     height: auto;
     aspect-ratio: 1/1;
   }
   
-  p {
+  :where(p) {
     cursor: default;
   }
 }
@@ -19,9 +19,11 @@
 :where(button, li) {
   color: inherit;
   font-size: inherit;
+  transition: all 0.15s ease-out;
 
-  &:hover, &:focus:active {
+  &:hover, &:active {
     opacity: 0.75;
+    transform: scale(1.05);
   }
 }
 
