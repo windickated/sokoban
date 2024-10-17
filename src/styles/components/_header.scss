@@ -59,7 +59,7 @@
     padding-block: $standard;
     max-height: 11 * $item-size;
     width: $large * 3;
-    min-height: 11 * $pc-item-size;
+    height: 11 * $pc-item-size;
 
     .title {
       font-size: $standard * 1.5;

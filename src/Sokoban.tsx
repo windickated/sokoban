@@ -55,7 +55,7 @@ function Sokoban() {
     if (event.key.toLowerCase() === 'a') handleMove('ArrowLeft');
     if (event.key.toLowerCase() === 's') handleMove('ArrowDown');
     if (event.key.toLowerCase() === 'd') handleMove('ArrowRight');
-    if (event.key.toLowerCase() === 'u') undoMove();
+    if (event.key.toLowerCase() === 'q') undoMove();
     if (event.key.toLowerCase() === 'r') switchLevel(selectedLevel);
     if (event.key.toLowerCase() === 'f') {
       if (!document.fullscreenElement) document.documentElement.requestFullscreen();

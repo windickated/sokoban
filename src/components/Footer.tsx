@@ -48,18 +48,19 @@ const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMo
           :
           <div className="play-instructions">
             <div className="instruction">
-              <p>
-                <strong>R</strong> - Restart
-              </p>
-              <p>
-                <strong>Q</strong> - Undo move
-              </p>
+              <img src="r-button.png" alt="R" />
+              <p> - Restart</p>
             </div>
             <div className="instruction">
-              <p>
-                Use arrows to move:
-              </p>
-              <img src="arrows.png" alt="Arrows" />
+              <img src="q-button.png" alt="Q" />
+              <p>- Undo move</p>
+            </div>
+            <div className="instruction">
+              <img src="f-button.png" alt="F" />
+              <p>- Fullscreen</p>
+            </div>
+            <div className="instruction">
+              <p>Use arrows or WASD to move</p>
             </div>
           </div>
         }
