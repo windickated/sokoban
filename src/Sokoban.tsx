@@ -29,6 +29,11 @@ const usersDevice: Device = {
   touchScreen: "ontouchstart" in document.documentElement ? true : false
 }
 
+type DialogWindow = {
+  showModal: boolean,
+  type: 'info' | 'win' | null
+};
+
 
 function Sokoban() {
   const [levels, setLevels] = useState<Level[]>(field.map((lvl, i) => {
@@ -46,7 +51,7 @@ function Sokoban() {
   const [currentMove, setCurrentMove] = useState<number[][]>(structuredClone(field[selectedLevel - 1]));
   const [history, setHistory] = useState<number[][][]>(new Array)
   const [checkPoints, setCheckPoints] = useState<number[][]>([[2,5], [4,9], [5,3], [8,6]]);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [dialogWindow, setDialogWindow] = useState<DialogWindow>({showModal: false, type: null});
   const documentRef = useRef<Document>(document);
 
   const handleKeyDown = (event: KeyboardEvent) => {
@@ -85,7 +90,7 @@ function Sokoban() {
     setCurrentMove(structuredClone(field[number - 1]));
     setHistory(new Array);
     setCheckPoints(checkPointsArray);
-    showModal && setShowModal(false);
+    dialogWindow?.showModal && handleModal(null);
   }
 
 
@@ -96,6 +101,7 @@ function Sokoban() {
         levels={levels}
         selectedLevel={selectedLevel}
         switchLevel={switchLevel}
+        handleModal={handleModal}
       />
       <Playground playField={currentMove} />
       <Footer
@@ -108,10 +114,12 @@ function Sokoban() {
         onSwitchMove={selectMove}
       />
       <Modal
-        showModal={showModal}
+        showModal={dialogWindow.showModal}
+        modalType={dialogWindow.type}
         completedLevel={selectedLevel}
         history={history}
         switchLevel={switchLevel}
+        handleModal={handleModal}
       />
     </section>
   )
@@ -237,7 +245,7 @@ function Sokoban() {
           if (lvl.nr === selectedLevel) lvl.completed = true;
           return lvl;
         }))
-        setShowModal(true);
+        handleModal('win');
       }
     }
   }
@@ -262,6 +270,13 @@ function Sokoban() {
       setCurrentMove(history[number]);
       setHistory(history.slice(0, number + 1));
     }
+  }
+
+
+  function handleModal(action: 'win' | 'info' | null) {
+    if (action === 'win') setDialogWindow({showModal: true, type: 'win'});
+    if (action === 'info') setDialogWindow({showModal: true, type: 'info'});
+    if (action === null) setDialogWindow({showModal: false, type: null});   
   }
 }
 

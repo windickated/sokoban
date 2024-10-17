@@ -5,14 +5,15 @@ interface HeaderProps {
   levels: Level[]
   selectedLevel: number
   switchLevel: Function
+  handleModal: Function
 }
 
-const Header = ({device, levels, selectedLevel, switchLevel}: HeaderProps) => {
+const Header = ({device, levels, selectedLevel, switchLevel, handleModal}: HeaderProps) => {
   return (
     <div className="header">
         <div className="title">
           <p>SOKOBAN</p>
-          <img src="info.png" alt="info" />
+          <img src="info.png" alt="info" onClick={() => handleModal('info')} />
         </div>
         {
           device.pcWideScreen

@@ -15,7 +15,7 @@
     cursor: default;
   }
 
-  :where(button, li) {
+  :where(button, .level) {
     color: inherit;
     font-size: inherit;
     transition: all 0.15s ease-out;

@@ -32,6 +32,35 @@ dialog {
       justify-content: space-around;
       align-items: center;
       height: 100vh;
+      color: $primary;
+      line-height: $standard * 2;
+      text-align: center;
+
+      h1 {
+        font-size: $standard * 1.5;
+        font-weight: bold;
+        margin-bottom: $large / 2;
+      }
+
+      h2 {
+        margin-top: $large / 2;
+        font-size: $standard / 1.5;
+        opacity: 0.5;
+      }
+
+      p, ul {
+        margin-bottom: $standard / 2;
+      }
+
+      ul {
+        padding: $standard;
+        background-color: $semi-transparent;
+        border-radius: $standard;
+      }
+
+      strong {
+        font-weight: bold;
+      }
   
       .win-info {
         display: flex;
@@ -39,24 +68,12 @@ dialog {
         align-items: center;
         gap: $standard * 2;
         padding-block: $large;
-        color: $primary;
-  
-        h1 {
-          font-size: $standard * 1.5;
-          font-weight: bold;
-          margin-bottom: $large;
-        }
-        
-        strong {
-          font-weight: bold;
-        }
       }
   
       .dialog-buttons {
         display: flex;
         justify-content: space-around;
         width: 100%;
-        height: 50%;
   
         button {
           padding: $standard;
