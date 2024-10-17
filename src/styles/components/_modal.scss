@@ -16,10 +16,6 @@ dialog {
     animation: openDialog 0.5s ease-in-out;
   }
 
-  button:hover, button:active {
-    opacity: 0.85;
-  }
-
   .close-dialog {
     background-color: rgba(0, 0, 0, 0);
     font-size: $standard * 2;

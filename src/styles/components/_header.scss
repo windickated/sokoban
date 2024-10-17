@@ -21,7 +21,7 @@
       opacity: 0.5;
       cursor: pointer;
 
-      &:hover, &:active {
+      &:hover, &:focus:active {
         opacity: 1;
       }
     }
@@ -41,8 +41,8 @@
       outline: none;
       cursor: context-menu;
 
-      &:hover, &:active {
-        opacity: 0.85;
+      &:hover, &:focus:active {
+        opacity: 0.75;
       }
     }
   }
@@ -75,10 +75,6 @@
         border: $thin / 2 solid $transparent;
         background-color: $semi-transparent;
         cursor: pointer;
-
-        &:hover, &:active {
-          opacity: 0.75;
-        }
       }
     }
   }

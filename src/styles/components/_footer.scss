@@ -24,7 +24,7 @@
         height: $standard;
         cursor: pointer;
 
-        &:hover, &:active {
+        &:hover, &:focus:active {
           opacity: 0.5;
         }
       }
@@ -34,10 +34,6 @@
       padding: $standard $standard * 2;
       background-color: $menu;
       line-height: inherit;
-
-      &:hover, &:active {
-        opacity: 0.75;
-      }
     }
   }
 
@@ -64,11 +60,6 @@
         background-color: $menu;
         padding-inline: $standard;
         padding-block: $standard / 2;
-        cursor: pointer;
-
-        &:hover, &:active {
-          opacity: 0.75;
-        }
       }
     }
   }

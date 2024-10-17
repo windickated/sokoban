@@ -28,7 +28,7 @@ const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMo
             {
               history.map((_: number[][], index: number) => {
                 return (
-                  <p className="move" key={index} onClick={() => onSwitchMove(index)}>{index + 1}</p>
+                  <button className="move" key={index} onClick={() => onSwitchMove(index)}>{index + 1}</button>
                 )
               })
             }
