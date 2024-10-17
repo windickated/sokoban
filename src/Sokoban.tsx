@@ -5,6 +5,7 @@ import Playground from "./components/Playground"
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import Modal from "./components/Modal"
+import TitlePicture from "./components/TitlePicture"
 
 
 export interface Level {
@@ -96,6 +97,7 @@ function Sokoban() {
 
   return (
     <section className="game">
+      <TitlePicture />
       <Header
         device={usersDevice}
         levels={levels}

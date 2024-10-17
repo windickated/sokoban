@@ -1,0 +1,54 @@
+@use "../variables" as *;
+
+.title-picture {
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  cursor: pointer;
+  transition: all 1s ease-out;
+
+  h1, h2 {
+    position: fixed;
+    width: 100vw;
+    text-align: center;
+    color: $semi-transparent;
+    font-weight: bold;
+  }
+
+  h1 {
+    top: $large;
+    font-size: $large;
+    -webkit-text-stroke: $thin * 2 rgba(255, 0, 0, 0.25);
+  }
+
+  h2 {
+    bottom: $large;
+    font-size: $large / 2;
+    line-height: $large;
+    -webkit-text-stroke: $thin rgba(255, 0, 0, 0.25);
+  }
+  
+
+  img {
+    aspect-ratio: initial;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@media screen and ($pc) { 
+  .title-picture {
+    h1 {
+      top: $standard;
+      font-size: $large * 2;
+    }
+
+    h2 {
+      bottom: $standard;
+    }
+  }
+}
