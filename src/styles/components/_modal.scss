@@ -1,0 +1,84 @@
+@use "../variables" as *;
+
+
+dialog {
+  z-index: 10;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: $semi-transparent;
+  border: $thin * 2 solid $transparent;
+  backdrop-filter: blur($standard);
+  transition: display 0.5s allow-discrete;
+  animation: closeDialog 0.5s ease-in-out;
+
+  &[open] {
+    animation: openDialog 0.5s ease-in-out;
+  }
+
+  button:hover, button:active {
+    opacity: 0.85;
+  }
+
+  .close-dialog {
+    background-color: rgba(0, 0, 0, 0);
+    font-size: $standard * 2;
+    outline: none;
+  }
+
+  section {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 90%;
+
+    .win-info {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      gap: $standard * 2;
+      padding-block: $large;
+      color: $primary;
+
+      h1 {
+        font-size: $standard * 1.5;
+        font-weight: bold;
+        margin-bottom: $large;
+      }
+      
+      strong {
+        font-weight: bold;
+      }
+    }
+
+    .dialog-buttons {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+
+      button {
+        padding: $standard;
+        background-color: $menu;
+        color: $light;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+
+@media screen and ($pc) { 
+  dialog {
+    width: $pc-item-size * 13;
+    height: 11 * $pc-item-size;
+    border: $thin solid $gray;
+    margin-top: $standard;
+    border-radius: $standard * 1.5;
+    animation-name: closeDialogPC;
+
+    &[open] {
+      animation-name: openDialogPC;
+    }
+  }
+}

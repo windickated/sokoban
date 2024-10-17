@@ -1,0 +1,85 @@
+@use "../variables" as *;
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-inline: $standard;
+  padding-block: $standard / 2;
+  background-color: $menu;
+  color: $light;
+  font-weight: $bold;
+
+  .title {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+
+    img {
+      width: $standard * 0.85;
+      opacity: 0.5;
+      cursor: pointer;
+
+      &:hover, &:active {
+        opacity: 1;
+      }
+    }
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: $standard / 2;
+
+    .level {
+      padding: $standard / 2;
+      border: $thin solid $dark;
+      border-radius: $standard / 2;
+      background-color: $primary;
+      font-weight: $bold;
+      outline: none;
+      cursor: context-menu;
+
+      &:hover, &:active {
+        opacity: 0.85;
+      }
+    }
+  }
+}
+
+
+@media screen and ($pc) { 
+  .header {
+    flex-direction: column;
+    justify-content: flex-start;
+    outline: $standard / 1.5 solid $transparent;
+    border-radius: $standard / 3;
+    margin-block: $standard * 2;
+    padding-block: $standard;
+    max-height: 11 * $item-size;
+    width: $large * 3;
+
+    .title {
+      font-size: $standard * 1.5;
+      margin-bottom: $standard / 1.5;
+      color: $primary;
+    }
+
+    ul {
+      line-height: $standard * 2;
+
+      .level {
+        font-size: $standard * 0.9;
+        padding: $standard / 2 $standard * 2;
+        border: $thin / 2 solid $transparent;
+        background-color: $semi-transparent;
+        cursor: pointer;
+
+        &:hover, &:active {
+          opacity: 0.75;
+        }
+      }
+    }
+  }
+}
