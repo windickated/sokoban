@@ -6,6 +6,9 @@ const TitlePicture = () => {
   const closeMenu = () => {
     titlePicture.current!.style.opacity = '0';
     titlePicture.current!.style.transform = 'scale(2)';
+    setTimeout(() => {
+      titlePicture.current!.style.display = 'none';
+    }, 1000);
   }
 
   return (
