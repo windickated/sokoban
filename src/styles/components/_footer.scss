@@ -124,6 +124,7 @@
     max-height: 11 * $item-size;
     width: $large * 3;
     background-color: $menu;
+    min-height: 11 * $pc-item-size;
 
     .controls {
       flex-direction: column;

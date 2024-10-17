@@ -31,13 +31,15 @@ const Modal = ({showModal, completedLevel, history, switchLevel}: ModalProps) =>
   )
 
   return (
-    <dialog ref={dialog}>
-      <button className="close-dialog" onClick={() => {dialog.current?.close()}}>
-        ❌
-      </button>
-      <section>
-        {showModal && levelInfo}
-      </section>
+    <dialog ref={dialog} onClick={() => {dialog.current?.close()}}>
+      <div onClick={(event) => event.stopPropagation()}>
+        <button className="close-dialog" onClick={() => {dialog.current?.close()}}>
+          ❌
+        </button>
+        <section>
+          {showModal && levelInfo}
+        </section>
+      </div>
     </dialog>
   )
 }

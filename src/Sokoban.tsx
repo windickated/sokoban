@@ -51,8 +51,16 @@ function Sokoban() {
 
   const handleKeyDown = (event: KeyboardEvent) => {
     if (event.key.match('Arrow')) handleMove(event.key);
+    if (event.key.toLowerCase() === 'w') handleMove('ArrowUp');
+    if (event.key.toLowerCase() === 'a') handleMove('ArrowLeft');
+    if (event.key.toLowerCase() === 's') handleMove('ArrowDown');
+    if (event.key.toLowerCase() === 'd') handleMove('ArrowRight');
     if (event.key.toLowerCase() === 'u') undoMove();
     if (event.key.toLowerCase() === 'r') switchLevel(selectedLevel);
+    if (event.key.toLowerCase() === 'f') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+        else document.exitFullscreen();
+    }
   } 
 
   useEffect(() => {

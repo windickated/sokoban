@@ -14,16 +14,16 @@
   :where(p) {
     cursor: default;
   }
-}
 
-:where(button, li) {
-  color: inherit;
-  font-size: inherit;
-  transition: all 0.15s ease-out;
-
-  &:hover, &:active {
-    opacity: 0.75;
-    transform: scale(1.05);
+  :where(button, li) {
+    color: inherit;
+    font-size: inherit;
+    transition: all 0.15s ease-out;
+  
+    &:hover, &:active {
+      opacity: 0.75;
+      transform: scale(1.05);
+    }
   }
 }
 
@@ -52,7 +52,9 @@ html {
     overflow-y: hidden;
 
     .game {
+      height: 100vh;
       flex-direction: row;
+      align-items: center;
     }
   }
 }
