@@ -1,7 +1,12 @@
 import { useRef } from "react";
+import { Device } from "../Sokoban";
 
-const TitlePicture = () => {
-  const titlePicture = useRef<any>(null);
+interface TitlePictureProps {
+  device: Device
+}
+
+const TitlePicture = ({device}: TitlePictureProps) => {
+  const titlePicture = useRef<HTMLElement>(null);
 
   const closeMenu = () => {
     titlePicture.current!.style.opacity = '0';
@@ -11,11 +16,13 @@ const TitlePicture = () => {
     }, 1000);
   }
 
+  const pictureURL = device.mobile ? 'title-mobile.jpg' : 'title.jpg';
+
   return (
     <section className="title-picture" ref={titlePicture} onClick={closeMenu}>
       <h1>SOKOBAN</h1>
       <h2>Click anywhere to START</h2>
-      <img src="title.jpg" alt="SOKOBAN" />
+      <img src={pictureURL} alt="SOKOBAN" />
     </section>
   )
 }

@@ -1,3 +1,6 @@
+@use "colors" as *; 
+@use "sizes" as *;
+
 @keyframes openDialog {
   from {
     opacity: 0;
@@ -43,5 +46,26 @@
     opacity: 0;
     filter: blur(100%);
     transform: scale(0);
+  }
+}
+
+@keyframes textPulse {
+  0% {
+    color: $menu;
+    text-shadow: 0 0 $standard $dark;
+    transform: scale(1.05);
+    -webkit-text-stroke: $thin $red;
+  }
+  50% {
+    color: $primary;
+    text-shadow: 0 0 $standard $red;
+    transform: scale(1);
+    -webkit-text-stroke: $thin $menu;
+  }
+  100% {
+    color: $menu;
+    text-shadow: 0 0 $standard $dark;
+    transform: scale(1.05);
+    -webkit-text-stroke: $thin $red;
   }
 }

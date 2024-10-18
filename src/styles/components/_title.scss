@@ -21,14 +21,16 @@
   h1 {
     top: $large;
     font-size: $large;
-    -webkit-text-stroke: $thin * 2 rgba(255, 0, 0, 0.25);
+    color: $menu;
+    -webkit-text-stroke: $thin * 2 $red;
+    text-shadow: 0 0 $standard $dark;
   }
 
   h2 {
-    bottom: $large;
+    bottom: $standard;
     font-size: $large / 2;
     line-height: $large;
-    -webkit-text-stroke: $thin rgba(255, 0, 0, 0.25);
+    animation: textPulse 2.5s ease-in-out infinite;
   }
   
 
@@ -44,11 +46,7 @@
   .title-picture {
     h1 {
       top: $standard;
-      font-size: $large * 2;
-    }
-
-    h2 {
-      bottom: $standard;
+      font-size: $large * 1.5;
     }
   }
 }

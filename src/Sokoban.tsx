@@ -97,7 +97,7 @@ function Sokoban() {
 
   return (
     <section className="game">
-      <TitlePicture />
+      <TitlePicture device={usersDevice} />
       <Header
         device={usersDevice}
         levels={levels}
