@@ -9,6 +9,8 @@ interface ModalProps {
   handleModal: Function
 }
 
+const bestScore: number[] = [13, 88, 114, 32, 50, 999, 999, 44, 195, 36, 69];
+
 const Modal = ({showModal, modalType, completedLevel, history, switchLevel, handleModal}: ModalProps) => {
   const dialog = useRef<HTMLDialogElement>(null);
 
@@ -19,13 +21,13 @@ const Modal = ({showModal, modalType, completedLevel, history, switchLevel, hand
       <div className="win-info">
         <h1>LEVEL {completedLevel} COMPLETED!</h1>
         <p>Your result: <strong>{history.length}</strong> moves</p>
-        <p>Best result: <strong>13</strong> moves</p>
+        <p>Best result: <strong>{bestScore[completedLevel - 1]}</strong> moves</p>
       </div>
       <div className="dialog-buttons">
         <button onClick={() => switchLevel(completedLevel)}>
           TRY AGAIN
         </button>
-        <button onClick={() => switchLevel(completedLevel + 1)}>
+        <button disabled={completedLevel === 11} onClick={() => switchLevel(completedLevel + 1)}>
           NEXT LEVEL
         </button>
       </div>

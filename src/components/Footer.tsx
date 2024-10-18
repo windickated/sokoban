@@ -38,12 +38,12 @@ const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMo
           device.mobile
           ?
           <div className="mobile-controller">
-            <img onClick={() => onMove('ArrowUp')} src="mobile-button.png" alt="Top" />
+            <img className="mobile-button" onClick={() => onMove('ArrowUp')} src="mobile-button.png" alt="Top" />
             <div>
-              <img onClick={() => onMove('ArrowLeft')} style={{transform: 'rotate(270deg)'}} src="mobile-button.png" alt="Left" />
-              <img onClick={() => onMove('ArrowRight')} style={{transform: 'rotate(90deg)'}} src="mobile-button.png" alt="Right" />
+              <img className="mobile-button" onClick={() => onMove('ArrowLeft')} style={{transform: 'rotate(270deg)'}} src="mobile-button.png" alt="Left" />
+              <img className="mobile-button" onClick={() => onMove('ArrowRight')} style={{transform: 'rotate(90deg)'}} src="mobile-button.png" alt="Right" />
             </div>
-            <img onClick={() => onMove('ArrowDown')} style={{transform: 'rotate(180deg)'}} src="mobile-button.png" alt="Bottom" />
+            <img className="mobile-button" onClick={() => onMove('ArrowDown')} style={{transform: 'rotate(180deg)'}} src="mobile-button.png" alt="Bottom" />
           </div>
           :
           <div className="play-instructions">

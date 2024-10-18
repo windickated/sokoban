@@ -15,7 +15,7 @@
     cursor: default;
   }
 
-  :where(button, .level) {
+  :where(button, .level, .mobile-button) {
     color: inherit;
     font-size: inherit;
     transition: all 0.15s ease-out;
@@ -23,6 +23,12 @@
     &:hover, &:active {
       opacity: 0.75;
       transform: scale(1.05);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      background-color: $gray !important;
+      transform: none;
     }
   }
 }
