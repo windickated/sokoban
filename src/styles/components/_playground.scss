@@ -7,7 +7,7 @@
   width: 100vw;
   margin-inline: auto;
   margin-block: $standard;
-  background-image: url('cover.png');
+  background-image: url('/cover.png');
   background-size: contain;
   outline: $thin solid $dark;
   filter: drop-shadow(0 0 $thin $dark);
