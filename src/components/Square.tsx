@@ -15,7 +15,7 @@ function Square({object, i, j}: SquareProps) {
       className="field-item"
       id={(i).toString() + (j).toString()}
       style={styling}
-      src={"/" + object + ".jpg"}
+      src={object + ".jpg"}
       alt={object}
     />
   )
