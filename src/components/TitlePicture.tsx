@@ -16,7 +16,7 @@ const TitlePicture = ({device}: TitlePictureProps) => {
     }, 1000);
   }
 
-  const pictureURL = device.mobile ? '/title-mobile.png' : 'title.png';
+  const pictureURL = device.mobile ? '/title-mobile.png' : '/title.png';
 
   return (
     <section className="title-picture" ref={titlePicture} onClick={closeMenu}>
