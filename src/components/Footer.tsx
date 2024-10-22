@@ -49,12 +49,12 @@ const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMo
           device.mobile
           ?
           <div className="mobile-controller">
-            <img className="mobile-button" onClick={() => onMove('ArrowUp')} src="mobile-button.png" alt="Top" />
+            <img className="mobile-button" onClick={() => onMove('ArrowUp')} src="mobile-button.png" alt="Top" draggable="false" />
             <div>
-              <img className="mobile-button" onClick={() => onMove('ArrowLeft')} style={{transform: 'rotate(270deg)'}} src="mobile-button.png" alt="Left" />
-              <img className="mobile-button" onClick={() => onMove('ArrowRight')} style={{transform: 'rotate(90deg)'}} src="mobile-button.png" alt="Right" />
+              <img className="mobile-button" onClick={() => onMove('ArrowLeft')} style={{transform: 'rotate(270deg)'}} src="mobile-button.png" alt="Left" draggable="false" />
+              <img className="mobile-button" onClick={() => onMove('ArrowRight')} style={{transform: 'rotate(90deg)'}} src="mobile-button.png" alt="Right" draggable="false" />
             </div>
-            <img className="mobile-button" onClick={() => onMove('ArrowDown')} style={{transform: 'rotate(180deg)'}} src="mobile-button.png" alt="Bottom" />
+            <img className="mobile-button" onClick={() => onMove('ArrowDown')} style={{transform: 'rotate(180deg)'}} src="mobile-button.png" alt="Bottom" draggable="false" />
           </div>
           :
           <div className="play-instructions">
