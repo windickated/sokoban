@@ -15,9 +15,11 @@
 
     .moves {
       display: flex;
+      align-items: center;
       gap: $standard;
       padding: $standard $standard * 2;
       background-color: $menu;
+      max-height: $standard * 3;
 
       .undo-move {
         width: $standard;
@@ -27,6 +29,15 @@
         &:hover, &:active {
           opacity: 0.5;
         }
+      }
+
+      .moves-selector {
+        background-color: $menu;
+        border: none;
+        outline: none;
+        color: inherit;
+        font-size: inherit;
+        line-height: inherit;
       }
     }
 

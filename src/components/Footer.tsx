@@ -16,13 +16,24 @@ const Footer = ({device, level, history, switchLevel, onMove, onUndo, onSwitchMo
         <div className="controls" >
           <div className="moves">
             <img className="undo-move" src="undo.png" alt="Undo" onClick={onUndo} />
-            <p className="moves-counter">Moves: {history.length}</p>
+            <p className="moves-counter">
+              Moves: {!device.mobile
+              ? history.length
+              : history.length > 0 ? <select className="moves-selector" onChange={(event: any) => onSwitchMove(event.target.value - 1)}>
+                {history.map((_, index) => (
+                  <option key={index} selected={history.length === index + 1}>
+                    {index + 1}
+                  </option>
+                ))}
+              </select>
+              : '0'}
+            </p>
           </div>
           <button className="restart" onClick={() => switchLevel(level)}>
             Restart
           </button>
         </div>
-        {history.length > 0 && <section className="moves-history">
+        {!device.mobile && history.length > 0 && <section className="moves-history">
           <p className="history-title">Moves history:</p>
           <div className="history">
             {
