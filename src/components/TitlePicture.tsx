@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { Device } from "../Sokoban";
 
 interface TitlePictureProps {
@@ -6,7 +6,13 @@ interface TitlePictureProps {
 }
 
 const TitlePicture = ({device}: TitlePictureProps) => {
+  const documentRef = useRef<Document>(document);
   const titlePicture = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    documentRef.current.addEventListener('keydown', closeMenu);
+      return () => documentRef.current.removeEventListener('keydown', closeMenu);
+  }, [])
 
   const closeMenu = () => {
     titlePicture.current!.style.opacity = '0';
@@ -19,7 +25,7 @@ const TitlePicture = ({device}: TitlePictureProps) => {
   const pictureURL: string = device.mobile ? '/title-mobile' : '/title';
 
   return (
-    <section className="title-picture" ref={titlePicture} onClick={closeMenu} onKeyDown={closeMenu}>
+    <section className="title-picture" ref={titlePicture} onClick={closeMenu}>
       <h1>SOKOBAN</h1>
       <h2>Click anywhere to START</h2>
       <picture>
