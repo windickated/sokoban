@@ -9,7 +9,7 @@ interface ModalProps {
   handleModal: Function
 }
 
-const bestScore: number[] = [13, 88, 114, 32, 50, 999, 999, 44, 195, 36, 69];
+const bestScore: number[] = [13, 88, 114, 32, 50, 134, 93, 44, 195, 36, 69];
 
 const Modal = ({showModal, modalType, completedLevel, history, switchLevel, handleModal}: ModalProps) => {
   const dialog = useRef<HTMLDialogElement>(null);
