@@ -16,13 +16,16 @@ const TitlePicture = ({device}: TitlePictureProps) => {
     }, 1000);
   }
 
-  const pictureURL = device.mobile ? '/title-mobile.png' : '/title.png';
+  const pictureURL: string = device.mobile ? '/title-mobile' : '/title';
 
   return (
-    <section className="title-picture" ref={titlePicture} onClick={closeMenu}>
+    <section className="title-picture" ref={titlePicture} onClick={closeMenu} onKeyDown={closeMenu}>
       <h1>SOKOBAN</h1>
       <h2>Click anywhere to START</h2>
-      <img src={pictureURL} alt="SOKOBAN" />
+      <picture>
+        <source srcSet={pictureURL + ".avif"} type="image/avif" />
+        <img src={pictureURL + ".png"} alt="SOKOBAN" />
+      </picture>
     </section>
   )
 }
